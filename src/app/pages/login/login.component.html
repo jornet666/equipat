@@ -9,19 +9,26 @@
 
         <!-- Icon -->
         <div class="fadeIn first">
-            <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
+            Imagen
         </div>
 
         <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
-            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <input type="text" id="usuario" name="login" placeholder="usuario" formControlName="usuario" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }" >
+            <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
+                <div *ngIf="f.usuario.errors.required">usuario requerido</div>
+            </div>
+            <input type="password" id="password"  name="login" placeholder="contraseña" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
+            <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
+                <div *ngIf="f.password.errors.required">usuario requerido</div>
+            </div>
+            <input type="submit" class="fadeIn fourth" value="Pásele a lo barrido" >
+           
         </form>
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-            <a class="underlineHover" href="#">Forgot Password?</a>
+            <a class="underlineHover">Se te olvidó el password?</a>
         </div>
 
     </div>
