@@ -1,23 +1,22 @@
 import { Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-<<<<<<< HEAD
-import{MenuComponent} from './pages/menu/menu.component';
-
+import {MenuComponent} from './pages/menu/menu.component';
+import { HomeComponent } from './pages/home/home.component';
+import { PerfilesComponent} from './pages/perfiles/perfiles.component';
+import { UsuariosComponent} from './pages/usuarios/usuarios.component';
 
 const APP_ROUTES: Routes = [
     {path: 'login', component: LoginComponent},
-    {path:'menu', component:MenuComponent},
+    {path: 'home', component: HomeComponent,
+        children: [
+            {path: 'menu', component: MenuComponent},
+            {path: 'perfiles', component: PerfilesComponent},
+            {path: 'usuarios', component: UsuariosComponent},
+        ]},
     {path: '**', pathMatch: 'full', redirectTo: 'login'},
 
-=======
-import { HomeComponent } from './pages/home/home.component';
 
-const APP_ROUTES: Routes = [
-    {path: 'login', component: LoginComponent},
-    {path: 'home', component: HomeComponent},
-    {path: '**', pathMatch: 'full', redirectTo: 'login'}
->>>>>>> 130f3cdde5e6e243a7173039710aab2bb24eb181
 ];
 
 // tslint:disable-next-line: variable-name
