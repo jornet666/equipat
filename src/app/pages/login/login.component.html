@@ -13,25 +13,11 @@
         </div>
 
         <!-- Login Form -->
-<<<<<<< HEAD
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <input type="text" id="usuario" name="login" placeholder="usuario" formControlName="usuario" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }" >
-            <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
-                <div *ngIf="f.usuario.errors.required">usuario requerido</div>
-            </div>
-            <input type="password" id="password"  name="login" placeholder="contraseña" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" >
-            <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
-                <div *ngIf="f.password.errors.required">usuario requerido</div>
-            </div>
-            <input type="submit" class="fadeIn fourth" value="Pásele a lo barrido" >
-           
-=======
         <form>
             <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
             <input type="submit" class="fadeIn fourth" value="Log In">
-            <a class="underlineHover" [routerLink]="['/home']" routerLinkActive="router-link-active">asdfgh</a>
->>>>>>> 130f3cdde5e6e243a7173039710aab2bb24eb181
+            <a class="underlineHover" [routerLink]="['/home']" routerLinkActive="router-link-active">abrir</a>
         </form>
 
         <!-- Remind Passowrd -->
