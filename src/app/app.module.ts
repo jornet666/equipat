@@ -1,18 +1,45 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
+
 // rutas
-import { APP_ROUTING } from './app.routes';
+//import { APP_ROUTING } from './app.routes';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { RouterModule} from '@angular/router';
+
+import { APP_ROUTING} from './app.routes';
 import { LoginComponent } from './pages/login/login.component';
-import { MenuComponent } from './pages/menu/menu.component';
-import { HomeComponent } from './pages/home/home.component';
+import { CommonModule} from '@angular/common';
 
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+//Componetes
+import { MenuComponent } from './pages/menu/menu.component';
+import { HomeComponent } from './pages/home/home.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import { SidenavComponent } from './pages/sidenav/sidenav.component';
+import { PerfilesComponent } from './pages/perfiles/perfiles.component';
+// Material Modules
+
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule } from '@angular/material';
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
+import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material';
+import { MatSidenavModule} from '@angular/material/sidenav';
+import { MatListModule} from '@angular/material/list';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//import { HttpClientModule } from '@angular/common/http';
+
+
+//cdk
+import {PortalModule} from '@angular/cdk/portal';
+import {MatNativeDateModule} from '@angular/material/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -26,7 +53,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     LoginComponent,
     MenuComponent,
-    HomeComponent
+    HomeComponent,
+    UsuariosComponent,
+    SidenavComponent,
+    PerfilesComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +64,28 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     APP_ROUTING,
     FormsModule,
     ReactiveFormsModule,
-    PerfectScrollbarModule
+    // PerfectScrollbarModule,
+  MatSidenavModule,
+  MatListModule,
+    // BrowserAnimationsModule,
+   MatToolbarModule,
+   MatIconModule,
+    // MatMenuModule,
+    // MatNativeDateModule,
+    // MatTreeModule,
+    // MatInputModule,
+  MatPaginatorModule,
+    // MatProgressSpinnerModule,
+    // MatSortModule,
+  MatTableModule,
+    // PortalModule,
+    // MatButtonModule,
+    // Injectable,
+    // HttpClient,
+  // HttpHeaders,
+    // CommonModule,
+   // APP_ROUTING,
+    RouterModule
   ],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
@@ -42,4 +93,5 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   }],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
