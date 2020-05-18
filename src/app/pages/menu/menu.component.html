@@ -1,1 +1,182 @@
-<h1>Works</h1>
+<link rel="stylesheet" href="../../../assets/plugins/fontawesome-free/css/all.min.css"> 
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+
+<section class="content-header">
+    <div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+        <h1>Menú</h1>
+        </div>
+        <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+            <li class="breadcrumb-item active">Menú</li>
+        </ol>
+        </div>
+    </div>
+    </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+    <div class="row" id="tablaPantalla" *ngIf="!openform">
+        <div class="col-12">
+        <div class="card">
+            <div class="card-header row">
+            <div class="col-md-10">
+                <h3 class="card-title">Listado de menús</h3>
+            </div>
+            <div class="col-md-2  text-center">
+                <button (click)="AbrirAgregar()" href="#" class="btn btn-primary my-2" ><i></i>Agregar Nuevo</button>
+            </div>
+            
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+            <table id="tbMenus" class="table  table-bordered table-striped">
+                <thead>
+                <tr>
+                <th>EDITAR</th>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>PAGINA</th>
+                <th>ACTIVO</th>
+                
+                </tr>
+                </thead>
+                <tbody >
+                    <tr *ngFor="let r of listMenu">
+                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_menu)"></i></td>
+                    <td>{{r.cve_menu}}</td>
+                    <td>{{r.nombre}}</td>
+                    <td>{{r.pagina}}</td>
+                    <td>{{r.activo}}</td>
+                    </tr>
+                </tbody>
+            
+            </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        </div>
+        <!-- /.col -->
+    
+    
+    
+    </div>
+    <div class="row" id=formPantalla #formPantalla *ngIf="openform">
+        <!-- left column -->
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+            <div class="card-header row">
+               
+                <div class="col-md-2">
+                    <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+                </div>
+                <div class="col-md-10">
+                    <h3 class="card-title">{{nameAccion}}</h3>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form [formGroup]="menuForm" (ngSubmit)="OnSubmit()" role="form" >
+                
+                    <div class="row">
+                        <div class="card-body col-md-6">
+                            <div class="row form-group col-md-6">
+                                <label for="cve_menu">Clave </label>
+                                <input type="text" class="form-control" name="cve_menu" formControlName='cve_menu'  disabled required />
+                                <span *ngIf ="menuForm.cve_menu && !menuForm.cve_menu.valid">*</span> 
+                            </div>
+                            
+                            <div class="row form-group col-md-10">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" name="nombre" formControlName='nombre' placeholder="nombre" required />
+                                <span *ngIf ="menuForm.nombre && !menuForm.nombre.valid">*</span> 
+                            </div>
+                            <div class="form-group">
+                                <label for="cve_padre">Menú padre</label>
+                                <select class="form-control" name="cve_padre" formControlName='cve_padre'>
+                                    <option [value]= "0">SELECCIONE PADRE</option>
+                                    <option *ngFor="let o of listaMenuSelect" [value] = "o.cve_menu" >{{o.nombre}}</option>
+                                </select>
+                                </div>
+                            <div class="row form-group col-md-10">
+                                <label for="pagina">Pagina</label>
+                                <input type="text" class="form-control" name="pagina" formControlName='pagina' placeholder="página" required />
+                                <span *ngIf ="menuForm.pagina && !menuForm.pagina.valid">*</span> 
+                            </div>
+                            <div class="row form-group col-md-10">
+                                <label for="imagen">Icono</label>
+                                <div></div>
+                                <input type="hidden" class="form-control" name="imagen" formControlName='imagen' placeholder="imagen" required />
+                                <span *ngIf ="menuForm.imagen && !menuForm.imagen.valid">*</span> 
+                            </div>
+                            <div class="row form-group col-md-10">
+                                <label for="tooltip">ToolTip</label>
+                                <input type="text" class="form-control" name="tooltip" formControlName='tooltip' placeholder="tooltip">
+                            </div>
+                            <div class="row form-group col-md-10">
+                                    <div class="col-md-6 custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="activo" formControlName='activo'>
+                                        <label for="activo" class="custom-control-label">Activo</label>
+                                    </div>
+                            </div>
+                            <div class="row form-group col-md-10">
+                                <div class="col-md-6 custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" name="visible" formControlName='visible'>
+                                    <label for="visible" class="custom-control-label">Visible</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body col-md-6 overflow-auto" style="height: 600px;" role="document">
+                            <ul class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list">
+                                <li class="col-mb-4"  *ngFor="let i of iconosVer"> 
+                                    <div [innerHTML]="i" class="p-3 py-4 mb-2 bg-light text-center rounded" style="font-size: xx-large;"></div>
+                                </li>
+    
+                            </ul>
+                        </div>
+                    </div>
+            
+                <!-- /.card-body -->
+                <div class="card-footer">
+                <button type="submit" class="btn btn-primary">{{accionBoton}}</button>
+                </div>
+            </form>
+            </div>
+            <!-- /.card -->
+
+        </div>
+        </div>
+        <!-- /.row -->
+    
+    <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+   <!-- jQuery -->
+   <script src="../../../assets/plugins/jquery/jquery.min.js"></script>
+   <!-- Bootstrap 4 -->
+   <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- DataTables -->
+   <script src="../../../assets/plugins/datatables/jquery.dataTables.min.js"></script>
+   <script src="../../../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+   <script src="../../../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+   <script src="../../../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+   <!-- AdminLTE App -->
+   <script src="../../../assets/dist/js/adminlte.min.js"></script>
+   <!-- AdminLTE for demo purposes -->
+   <script src="../../../assets/dist/js/demo.js"></script>
+   <!-- page script -->
+  
+</div>
