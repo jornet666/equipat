@@ -6,6 +6,7 @@ import { NgModule, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { RouterModule} from '@angular/router';
 
@@ -23,6 +24,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { SidenavComponent } from './pages/sidenav/sidenav.component';
 import { PerfilesComponent } from './pages/perfiles/perfiles.component';
+import { EditarPerfilComponent } from './pages/perfiles/editar-perfil/editar-perfil.component';
+import { AgregarPerfilComponent } from './pages/perfiles/agregar-perfil/agregar-perfil.component';
+import { AgregarMenuComponent } from './pages/menu/agregar-menu/agregar-menu.component';
+import { EditarMenuComponent } from './pages/menu/editar-menu/editar-menu.component';
 // Material Modules
 
 import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule } from '@angular/material';
@@ -32,13 +37,13 @@ import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-//import { HttpClientModule } from '@angular/common/http';
 
 
 //cdk
 import {PortalModule} from '@angular/cdk/portal';
 import {MatNativeDateModule} from '@angular/material/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -56,7 +61,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     UsuariosComponent,
     SidenavComponent,
-    PerfilesComponent
+    PerfilesComponent,
+    EditarPerfilComponent,
+    AgregarPerfilComponent,
+    AgregarMenuComponent,
+    EditarMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -65,11 +74,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FormsModule,
     ReactiveFormsModule,
     // PerfectScrollbarModule,
-  MatSidenavModule,
-  MatListModule,
-    // BrowserAnimationsModule,
-   MatToolbarModule,
-   MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
     // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,

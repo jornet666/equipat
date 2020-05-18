@@ -1,33 +1,67 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Perfil} from '../models/perfil.models';
+import {PerfilService} from '../servicios/perfiles.service';
 
 
 @Component({
   selector: 'app-perfiles',
   templateUrl: './perfiles.component.html',
-  styleUrls: ['./perfiles.component.css']
+  styleUrls: ['./perfiles.component.css'],
+  providers: [PerfilService]
 })
 export class PerfilesComponent implements OnInit {
 
-  displayedColumns: string[] = ['cve_perfil','nombre','puedevertodo','activo'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  listTPerfil: any;
+  perfilform: FormGroup;
+  openform: boolean = false;
+  accionBoton: string = '';
+  nameAccion: string = '';
+  constructor(private _perfilservice: PerfilService, private formbuilder: FormBuilder)
+  {
+    this.perfilform = this.formbuilder.group({
+      cve_perfil: 0,
+      nombre: '',
+      pudevertodo:1,
+      activo: true
+    });
+  }
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.ObtenerListaTable(1);
+  }
+  OnSubmit(){
+
+  }
+  ObtenerListaTable(pagina= 1, longitud= 20, criterio = '') {
+    this._perfilservice.ObtenerListaTabla(pagina, longitud, criterio).subscribe(
+      response => {
+        console.log(response);
+        this.listTPerfil = response;
+      }
+      // tslint:disable-next-line: no-shadowed-variable
+      , error => {
+        console.log(error);
+      }
+    );
+  }
+  AbrirAgregar() {
+    this.openform = true;
+    this._perfilservice.ObenerUltimoIndice().subscribe(
+      response => {
+        this.perfilform.controls.cve_perfil.setValue(response['respuesta']);
+      }
+      , error => {
+        console.log(error);
+      }
+
+    );
+
+  }
+  AbrirEditar(cve_perfil){
+
+  }
+  RegresaraTabla(){
+    this.openform = false;
   }
 }
-  export interface PeriodicElement {
-    cve_perfil:number
-    nombre:string,
-    puedevertodo:string,
-    activo:string
-}
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  {cve_perfil: 1, nombre: 'Alfredo Rodiguez', puedevertodo: 'No', activo: 'Si'},
-  {cve_perfil: 2, nombre: 'EriKa Martines', puedevertodo: 'No', activo: 'Si'},
-  {cve_perfil: 3, nombre: 'Joaquín Mendoza', puedevertodo: 'No', activo: 'Si'}
-];
