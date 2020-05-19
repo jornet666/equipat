@@ -43,6 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {PortalModule} from '@angular/cdk/portal';
 import {MatNativeDateModule} from '@angular/material/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { FooterComponent } from './pages/footer/footer.component';
 
 
 
@@ -65,7 +66,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditarPerfilComponent,
     AgregarPerfilComponent,
     AgregarMenuComponent,
-    EditarMenuComponent
+    EditarMenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
