@@ -1,13 +1,15 @@
 
-import { Component, OnInit, ChangeDetectorRef, OnDestroy, Injectable} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy, Injectable, ViewEncapsulation} from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Router, Routes} from '@angular/router';
 
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('slide', [
       state('up', style({ height: 0 })),
@@ -30,18 +32,22 @@ export class SidenavComponent implements OnInit {
   //Variables
   private _mobileQueryListener: () => void;
   mobileQuery: MediaQueryList;
-  listaAcceso: string[] ;
+  listaAcceso: Routes ;
+  menuItems: any[];
 
   ngOnInit() {
     this.ObtenerLista();
+  
   }
   ngAfterViewInit() {
   }
 
-ObtenerLista(){
-  this.listaAcceso = ['perfil', 'menu'];
+ObtenerLista() {
+  this.listaAcceso = [];
 
 }
+
+
 
 }// Termina clase
 
