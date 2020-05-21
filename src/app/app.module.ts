@@ -36,13 +36,16 @@ import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material
 import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NestedTreeControl} from '@angular/cdk/tree';
+
+
+
 
 
 
 //cdk
 import {PortalModule} from '@angular/cdk/portal';
-import {MatNativeDateModule} from '@angular/material/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
 
 
 
@@ -79,7 +82,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    // MatMenuModule,
+    
     // MatNativeDateModule,
     // MatTreeModule,
     // MatInputModule,
@@ -88,18 +91,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // MatSortModule,
   MatTableModule,
     // PortalModule,
-    // MatButtonModule,
+  MatButtonModule,
     // Injectable,
     // HttpClient,
   // HttpHeaders,
     // CommonModule,
    // APP_ROUTING,
+   MatTreeModule,
+
     RouterModule
   ],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-  }],
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG.handlers
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {

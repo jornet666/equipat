@@ -49,7 +49,7 @@ export class MenuComponent implements OnInit {
 
   // Métodos
   ngOnInit() {
-
+    this._menuService.ObtenerTreeViewMenu();
     this.ObtenerLista();
     this.getClassesAndIds();
     this.accion = '';
@@ -103,36 +103,37 @@ export class MenuComponent implements OnInit {
         this.menuForm.controls.visible.setValue(response['visible']);
         this.menuForm.controls.nombre.setValue(response['nombre']);
         this.openform = true;
+       
       }
-      ,error => {
+      , error => {
           console.log(error);
-          
-      }
+
+        }
     );
   }
-  EditarMenu(cve_menu) {
-    this.ValidarFormulario();
-   
-  }
+ 
   OnSubmit() {
-
-    if (this.accion === 'A'){
-      const  menu = new Menu(
-                            0,
-                            this.menuForm.controls.cve_menu.value,
-                            this.menuForm.controls.cve_padre.value,
-                            this.menuForm.controls.nombre.value,
-                            this.menuForm.controls.pagina.value,
-                            this.menuForm.controls.imagen.value,
-                            this.menuForm.controls.activo.value,
-                            this.menuForm.controls.tooltip.value,
-                            this.menuForm.controls.visible.value,
-                      );
+    const  menu = new Menu(
+                0,
+                this.menuForm.controls.cve_menu.value,
+                this.menuForm.controls.cve_padre.value,
+                this.menuForm.controls.nombre.value,
+                this.menuForm.controls.pagina.value,
+                this.menuForm.controls.imagen.value,
+                this.menuForm.controls.activo.value,
+                this.menuForm.controls.tooltip.value,
+                this.menuForm.controls.visible.value,
+          );
+          
+          
+    if (this.accion === 'A') {
+      
       this._menuService.AgregarMenu(menu).subscribe(
         response =>{
             console.log(response);
             this.menuForm.reset();
-            this.AbrirAgregar();
+            this.ObtenerLista();
+            
         },
         error => {
           console.log(error);
@@ -142,7 +143,17 @@ export class MenuComponent implements OnInit {
     }
     else if (this.accion === 'E')
     {
-      console.log('E');
+      this._menuService.EditarrMenu(menu).subscribe(
+        response => {
+          console.log(response);
+          this.menuForm.reset();
+          this.ObtenerLista();
+        }
+        ,error => {
+            console.log(error);
+            
+        }
+        );
     }
     
   }
@@ -181,4 +192,5 @@ export class MenuComponent implements OnInit {
   RegresaraTabla() {
     this.openform = false;
   }
+  get M() { return this.menuForm.controls; }
 }

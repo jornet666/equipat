@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="../../../assets/plugins/fontawesome-free/css/all.min.css"> 
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -40,7 +40,8 @@
                 <thead>
                 <tr>
                 <th>EDITAR</th>
-                <th>ID</th>
+                <th>CLAVE</th>
+                <th>USUARIO</th>
                 <th>NOMBRE</th>
                 <th>ACTIVO</th>
                 
@@ -48,10 +49,10 @@
                 </thead>
                 <tbody >
                     <tr *ngFor="let r of listTPerfil">
-                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_perfil)"></i></td>
+                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_perfil,r.nombre, r.activo)"></i></td>
                     <td>{{r.cve_perfil}}</td>
                     <td>{{r.nombre}}</td>
-                    <td>{{r.activo}}</td>
+                    <td>{{r.activo?'Activo':'Inactivo'}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -68,52 +69,107 @@
         <div class="col-md-12">
             <!-- general form elements -->
             <div class="card card-primary">
-            <div class="card-header row">
-               
-                <div class="col-md-2">
-                    <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+                <div class="card-header row">
+                    <div class="col-md-2">
+                        <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="col-md-10">
+                        <h3 class="card-title">{{nameAccion}}</h3>
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <h3 class="card-title">{{nameAccion}}</h3>
-                </div>
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form [formGroup]="perfilform" (ngSubmit)="OnSubmit()" role="form" >
-                    <div class="row">
-                        <div class="card-body col-md-6">
-                            <div class="row form-group col-md-6">
-                                <label for="cve_perfil">Clave </label>
-                                <input type="text" class="form-control" name="cve_perfil" formControlName='cve_perfil'  disabled required />
-                                <span *ngIf ="perfilform.cve_perfil && !perfilform.cve_perfil.valid">*</span> 
-                            </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form [formGroup]="perfilform" (ngSubmit)="OnSubmit()" role="form" >
+                        <div class="row">
+                            <div class="card-body col-md-6">
+                                <div class="row form-group col-md-6">
+                                    <label for="cve_perfil">Clave </label>
+                                    <input type="text" class="form-control" name="cve_perfil" formControlName='cve_perfil'  disabled required />
+                                    <span *ngIf ="P.cve_perfil && !P.cve_perfil.valid">*</span> 
+                                </div>
+                                
+                                <div class="row form-group col-md-10">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" class="form-control" name="nombre" formControlName='nombre' placeholder="nombre" required />
+                                    <span *ngIf ="P.nombre && !P.nombre.valid">*</span> 
+                                </div>
                             
-                            <div class="row form-group col-md-10">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" class="form-control" name="nombre" formControlName='nombre' placeholder="nombre" required />
-                                <span *ngIf ="perfilform.nombre && !perfilform.nombre.valid">*</span> 
-                            </div>
-                           
-                            <div class="row form-group col-md-10">
-                                <div class="col-md-6 custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" name="activo" formControlName='activo'>
-                                    <label for="activo" class="custom-control-label">Activo</label>
+                                <div class="row form-group col-md-10">
+                                    <div class="col-md-6 custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" name="activo" formControlName='activo'>
+                                        <label for="activo" class="custom-control-label">Activo</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">{{accionBoton}}</button>
                     </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                <button type="submit" class="btn btn-primary">{{accionBoton}}</button>
-                </div>
-            </form>
+                </form>
             </div>
             <!-- /.card -->
-
         </div>
+    </div>
+    <!-- Inicia el administrador de perfiles-->
+    <div class="row" *ngIf="existePerfil" id="AdminPerfilTree">
+        <!-- left column -->
+        
+        <div class="col-md-12">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header row">
+                    <div class="col-md-10">
+                        <h3 class="card-title">Acceso a Menús</h3>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.row -->
+        <div class="col-md-12">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="treeview-colorful-list mb-3">
+                <!-- This is the tree node template for leaf nodes -->
+                <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+                  <li class="mat-tree-node">
+                    <!-- use a disabled button to provide padding for tree leaf -->
+                    <input type="checkbox" (click)="GuardarPerfil(node.cve_menu)"/>
+                    <button mat-icon-button disabled></button>
+                    {{node.nombre}}             
+                 </li>
+                </mat-tree-node>
+                <!-- This is the tree node template for expandable nodes -->
+                <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                  <li  class="treeview-colorful-items">
+                    <a class="treeview-colorful-items-header">
+                       
     
+                       
+                      </a>
+                    <div class="mat-tree-node " >
+                      <button mat-icon-button matTreeNodeToggle
+                              [attr.aria-label]="'toggle ' + node.nombre">
+                        <mat-icon [ngClass]="{  ' fas ':true,
+                                                '  fa-minus-circle':treeControl.isExpanded(node),
+                                                '  fa-plus-circle':!treeControl.isExpanded(node) }">
+                         
+                        </mat-icon>
+                      </button>
+                        <span><i class="nav-icon fas {{node.icono}}"></i>
+                        {{node.nombre}}   
+                        </span>
+                      
+                    </div>
+                    <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+                      <ng-container matTreeNodeOutlet></ng-container>
+                    </ul>
+                  </li>
+                </mat-nested-tree-node>
+              </mat-tree>
+          
+        </div>
+    </div>
+    <div>
+       
+    </div>
     <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
@@ -138,3 +194,4 @@
    <!-- page script -->
   
 </div>
+ <script src="../../../assets/plugins/appJS/perfil.js"></script>
