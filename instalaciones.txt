@@ -1,0 +1,3 @@
+npm install ngx-pagination --save
+npm install bootstrap-icons
+npm install ng-multiselect-dropdown

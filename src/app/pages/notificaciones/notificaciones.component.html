@@ -1,0 +1,144 @@
+<div class="container">
+    <div style="background:transparent !important" class="jumbotron">
+        <div class="card">
+            <div class="card-body col-fond-uno">
+                <h5 class="card-title">Usuarios para enviar notificaciones</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" (click)="toggle(0)" checked>
+                        <label class="custom-control-label" for="customRadio1">Enviar a todos.</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" (click)="toggle(1)">
+                        <label class="custom-control-label" for="customRadio2">Enviar a un segmento.</label>
+                    </div>
+                </li>
+            </ul>
+            <ng-container *ngIf="show">
+                <div style="background:transparent !important" class="jumbotron">
+                    <fieldset class="border p-2">
+                        <legend class="w-auto">Filtros</legend>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+
+                                        <label for="exampleFormControlInput1">Número de solicitud</label> &nbsp;
+                                        <i class="fa fa-key icon">
+                                            <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallenumsolicitud()" >
+                                                <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;" />
+                                              </svg>
+                                        </i>
+                                        <input type="text" (keypress)="numberOnly($event)" class="form-control" id="exampleFormControlInput1" placeholder="Titulo del mensaje " maxlength="10">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label for="exampleFormControlInput1">Sucursales</label>&nbsp;
+                                    <i class="fa fa-key icon">
+                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallesucursal()" >
+                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
+                                          </svg>
+                                    </i>
+                                    <ng-multiselect-dropdown [placeholder]="'Selecciona una sucursal'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                    </ng-multiselect-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </ng-container>
+            <div class="d-flex justify-content-end ">
+                <button type="button " class="btn verde">Consultar</button>
+            </div>
+            <div style="text-align:center">
+                <h4>
+                    Usuarios disponibles para enviar notificación
+                </h4>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Excluir</th>
+                            <th scope="col">Detalles</th>
+                            <th scope="col">Cliente</th>
+                            <th scope="col">Sucursal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of collection.data | paginate: config">
+                            <th scope="row">
+                                <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
+                                </svg>
+                            </th>
+                            <td><svg class="bi bi-info-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" style="color: #4F6F19;"/>
+                              </svg></td>
+                            <td>Erik Toto Rodriguez {{item.id}} </td>
+                            <td>Abasolo</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <pagination-template #p="paginationApi" [id]="config.id" (pageChange)="config.currentPage = $event">
+
+
+                    <div class="custom-pagination">
+                        <div class="pagination-previous" [class.disabled]="p.isFirstPage()">
+                            <span *ngIf="!p.isFirstPage()" (click)="p.previous()" class="cursorsobre">
+                        Anterior
+                          </span>
+                        </div>
+                        <div class="page-number" *ngFor="let page of p.pages" [class.current]="p.getCurrent() === page.value">
+                            <span (click)="p.setCurrent(page.value)" *ngIf="p.getCurrent() !== page.value">{{ page.label }}</span>
+                            <div *ngIf="p.getCurrent() === page.value">
+                                <span>{{ page.label }}</span>
+                            </div>
+                        </div>
+                        <div class="pagination-next" [class.disabled]="p.isLastPage()">
+                            <span *ngIf="!p.isLastPage()" (click)="p.next()" class="cursorsobre"> Siguiente </span>
+                        </div>
+                    </div>
+
+                </pagination-template>
+
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body col-fond-uno">
+                <h5 class="card-title">Mensaje</h5>
+
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Titulo</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo del mensaje " maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Mensaje</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Ingresa el mensaje a enviar"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Imagen</label>
+                    <div class="row">
+                        <div class="col-10"><input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Selecciona una imagen" maxlength="20"></div>
+                        <div class="col-2"> <button type="button " class="btn verde">Cargar imagen</button></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-center ">
+                        <button type="button " class="btn verde">Enviar notificaciones</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!--container close-->

@@ -44,8 +44,11 @@ import {PortalModule} from '@angular/cdk/portal';
 import {MatNativeDateModule} from '@angular/material/core';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import { FooterComponent } from './pages/footer/footer.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -67,7 +70,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AgregarPerfilComponent,
     AgregarMenuComponent,
     EditarMenuComponent,
-    FooterComponent
+    FooterComponent,
+    NotificacionesComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +85,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
+    NgxPaginationModule,
+    NgMultiSelectDropDownModule.forRoot(),
     // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,

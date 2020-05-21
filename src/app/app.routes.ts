@@ -6,6 +6,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PerfilesComponent } from './pages/perfiles/perfiles.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import { SidenavComponent} from './pages/sidenav/sidenav.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 
 
 
@@ -18,7 +19,9 @@ export const APP_ROUTES: Routes = [
             {path: 'perfiles', component: PerfilesComponent},
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'sidenav', component: SidenavComponent}
+            
         ]},
+    {path: 'push', component: NotificacionesComponent},
     {path: '**', pathMatch: 'full', redirectTo: 'login'}
 ];
 
