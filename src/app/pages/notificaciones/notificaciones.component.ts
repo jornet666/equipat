@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../services/notificaciones.service';
 
 @Component({
@@ -10,13 +10,12 @@ import { NotificacionesService } from '../../services/notificaciones.service';
 })
 export class NotificacionesComponent implements OnInit {
 
-  public show:boolean = false;
-  public buttonName:any = 'Show';
+  public show = false;
+  public buttonName: any = 'Show';
 
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-  
   collection = { count: 60, data: [] };
   config = {
     id: 'custom',
@@ -25,10 +24,10 @@ export class NotificacionesComponent implements OnInit {
     totalItems: this.collection.count
   };
 
-  public maxSize: number = 7;
-  public directionLinks: boolean = true;
-  public autoHide: boolean = false;
-  public responsive: boolean = true;
+  public maxSize = 7;
+  public directionLinks = true;
+  public autoHide = false;
+  public responsive = true;
   public labels: any = {
       previousLabel: '<--',
       nextLabel: '-->',
@@ -36,13 +35,12 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService) { 
-    //Create dummy data
-    for (var i = 0; i < this.collection.count; i++) {
+  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService) {
+    for (let i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
         {
           id: i + 1,
-          value: "items number " + (i + 1)
+          value: 'items number ' + (i + 1)
         }
       );
     }
@@ -57,7 +55,7 @@ export class NotificacionesComponent implements OnInit {
       { item_id: 5, item_text: 'New Delhi' }
     ];
     this.selectedItems = [
-      
+
     ];
     this.dropdownSettings =  {
       singleSelection: false,
@@ -69,15 +67,14 @@ export class NotificacionesComponent implements OnInit {
       allowSearchFilter: true
     };
 
-     /** spinner starts on init */
-     this.spinner.show();
- 
-     setTimeout(() => {
-       /** spinner ends after 5 seconds */
-       this.spinner.hide();
-     }, 5000);
+    //  /** spinner starts on init */
+    // this.spinner.show();
+    // setTimeout(() => {
+    //    /** spinner ends after 5 seconds */
+    //    this.spinner.hide();
+    //  }, 5000);
   }
-  onPageChange(event){
+  onPageChange(event) {
     console.log(event);
     this.config.currentPage = event;
   }
@@ -90,25 +87,26 @@ export class NotificacionesComponent implements OnInit {
   }
 
   toggle(activar: number) {
-    if(activar === 0){
+    if (activar === 0) {
       this.show = false;
-    }
-    else{
+    } else {
       this.show = true;
     }
   }
 
-  detallenumsolicitud(){
-    swal.fire('Información', 'El número de solicitud debe de estar registrado en la base de datos móvil', 'info')
+  detallenumsolicitud() {
+    swal.fire('Información', 'El número de solicitud debe de estar registrado en la base de datos móvil', 'info');
   }
 
-  detallesucursal(){
-    swal.fire('Información', 'Selecciona una sucursal para poder filtrar', 'info')
+  detallesucursal() {
+    swal.fire('Información', 'Selecciona una sucursal para poder filtrar', 'info');
   }
 
-  cargaregistrospush(){
+  cargaregistrospush() {
+    // tslint:disable-next-line: no-debugger
+    debugger;
     this.spinner.show();
-    this.service.cargaFiltrotodo().subscribe( resp =>{
+    this.service.cargaFiltrotodo().subscribe( resp => {
     this.spinner.hide();
     });
   }
