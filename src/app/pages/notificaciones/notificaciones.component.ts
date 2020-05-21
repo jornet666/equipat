@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { NgxSpinnerService } from "ngx-spinner";
+import { NotificacionesService } from '../../services/notificaciones.service';
 
 @Component({
   selector: 'app-notificaciones',
@@ -35,7 +36,7 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private spinner: NgxSpinnerService) { 
+  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService) { 
     //Create dummy data
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -103,6 +104,13 @@ export class NotificacionesComponent implements OnInit {
 
   detallesucursal(){
     swal.fire('Información', 'Selecciona una sucursal para poder filtrar', 'info')
+  }
+
+  cargaregistrospush(){
+    this.spinner.show();
+    this.service.cargaFiltrotodo().subscribe( resp =>{
+    this.spinner.hide();
+    });
   }
 
 

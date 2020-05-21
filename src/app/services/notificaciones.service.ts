@@ -19,7 +19,7 @@ export class NotificacionesService {
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post(environment.url + 'loginuser', body, httpOptions);
+    return this.http.post(environment.url + 'clientespush', body, httpOptions);
   }
 
   /**

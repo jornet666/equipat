@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "https://renoenlineaapi.azurewebsites.net",
+        "target": "http://localhost:4200",
         "secure": true,
         "loglevel": "debug"
     }
