@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-notificaciones',
@@ -34,7 +35,7 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor() { 
+  constructor(private spinner: NgxSpinnerService) { 
     //Create dummy data
     for (var i = 0; i < this.collection.count; i++) {
       this.collection.data.push(
@@ -66,6 +67,14 @@ export class NotificacionesComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
+     /** spinner starts on init */
+     this.spinner.show();
+ 
+     setTimeout(() => {
+       /** spinner ends after 5 seconds */
+       this.spinner.hide();
+     }, 5000);
   }
   onPageChange(event){
     console.log(event);

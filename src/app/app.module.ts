@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule, Injectable,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 
 // rutas
 //import { APP_ROUTING } from './app.routes';
@@ -50,6 +50,8 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
+import { NgxSpinnerModule } from "ngx-spinner";
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -87,6 +89,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatIconModule,
     NgxPaginationModule,
     NgMultiSelectDropDownModule.forRoot(),
+    NgxSpinnerModule,
     // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,
@@ -104,6 +107,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
    // APP_ROUTING,
     RouterModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
