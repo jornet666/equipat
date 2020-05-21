@@ -30,7 +30,7 @@ import { AgregarMenuComponent } from './pages/menu/agregar-menu/agregar-menu.com
 import { EditarMenuComponent } from './pages/menu/editar-menu/editar-menu.component';
 // Material Modules
 
-import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule} from '@angular/material';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -90,6 +90,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxPaginationModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgxSpinnerModule,
+   
     // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,
