@@ -1,0 +1,58 @@
+.col-fond-uno {
+    background-color: #4F6F19;
+    color: white;
+}
+
+.container {
+    padding: 2rem 0rem;
+}
+
+h4 {
+    margin: 2rem 0rem 1rem;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #4F6F19;
+    border-color: #4F6F19;
+    background-color: #4F6F19;
+}
+
+.verde {
+    background-color: #4F6F19;
+    color: white;
+}
+
+.custom-pagination .page-number {
+    display: inline-block;
+    /* padding: 5px 12px; */
+    background: #C1D82F;
+    margin: 0px 4px;
+    border-radius: 25px;
+}
+
+.page-number.current {
+    background: #4F6F19!important;
+    border: 2px solid #458873;
+}
+
+.page-number span {
+    display: block;
+    width: 28px;
+    height: 28px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.pagination-previous,
+.pagination-next {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.red {
+    color: red;
+}
+
+.cursorsobre {
+    cursor: pointer;
+}

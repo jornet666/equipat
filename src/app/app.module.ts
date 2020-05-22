@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injectable } from '@angular/core';
+import { NgModule, Injectable,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 
 // rutas
 //import { APP_ROUTING } from './app.routes';
@@ -22,15 +22,15 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { MenuComponent } from './pages/menu/menu.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
-import { SidenavComponent } from './pages/sidenav/sidenav.component';
+
 import { PerfilesComponent } from './pages/perfiles/perfiles.component';
-import { EditarPerfilComponent } from './pages/perfiles/editar-perfil/editar-perfil.component';
-import { AgregarPerfilComponent } from './pages/perfiles/agregar-perfil/agregar-perfil.component';
 import { AgregarMenuComponent } from './pages/menu/agregar-menu/agregar-menu.component';
 import { EditarMenuComponent } from './pages/menu/editar-menu/editar-menu.component';
+import { FooterComponent } from './pages/footer/footer.component';
+import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 // Material Modules
 
-import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule } from '@angular/material';
+import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule} from '@angular/material';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
 import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material';
 import { MatSidenavModule} from '@angular/material/sidenav';
@@ -43,11 +43,18 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 
 
 
+
 //cdk
 import {PortalModule} from '@angular/cdk/portal';
+import {MatNativeDateModule} from '@angular/material/core';
+import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 
 
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+import { NgxSpinnerModule } from "ngx-spinner";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -63,12 +70,11 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuComponent,
     HomeComponent,
     UsuariosComponent,
-    SidenavComponent,
     PerfilesComponent,
-    EditarPerfilComponent,
-    AgregarPerfilComponent,
     AgregarMenuComponent,
-    EditarMenuComponent
+    EditarMenuComponent,
+    FooterComponent,
+    NotificacionesComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +88,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    
+    NgxPaginationModule,
+    NgMultiSelectDropDownModule.forRoot(),
+    NgxSpinnerModule,
+    // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,
     // MatInputModule,
@@ -101,6 +110,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     RouterModule
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG.handlers

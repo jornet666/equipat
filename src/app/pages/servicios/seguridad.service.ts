@@ -26,7 +26,7 @@ export class SeguridadService {
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
     }
     ObtnerMenuPorPerfil(cve_perfilM){
-        this.url = this.urlBase + 'ObtLTreePerfil';
+        this.url = this.urlBase + 'ObtenerListaTreePerfil';
 
         const body = {
             cve_perfil: cve_perfilM

@@ -1,29 +1,76 @@
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../../assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-   <link rel="stylesheet" href="../../../assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="../../../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css"> 
 
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../../assets/plugins/dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-  <div class="hold-transition sidebar-mini">
-    <div class="wrapper" >
-        <app-sidenav></app-sidenav>
+    <mat-sidenav-container class="home-sidebar">
+      <mat-sidenav #sidenav mode="side" [(opened)]="opened" class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="../../home/perfiles" class="brand-link">
+          <span class="brand-text font-weight-light">INNOVACIÓN Y DESARROLLO</span>
+        </a>
+         
+      <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="../../../assets/images/usuario.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <a  class="d-block">Alexander Pierce</a>
+          </div>
+          
+        </div>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="info">
+            <a  class="d-block">Administrador</a>
+          </div>
+        </div>
+       
+        <nav class="mt-2">
+          <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" [ngClass]="{'mat-tree':false,                                                                     
+                                                                                        'nav':true,'nav-pills':true, 'nav-sidebar':true,
+                                                                                        'flex-column':true}" >
+            <!-- This is the tree node template for leaf nodes -->
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle >
+              <li class="nav-item">
+                <!-- use a disabled button to provide padding for tree leaf -->
+                <a [routerLink]="node.pagina" class="nav-link">
+                  <i class="nav-icon fas {{node.icono}}"></i>
+                  <p> {{node.nombre}}  </p>
+                </a>     
+              </li>
+            </mat-tree-node>
+      <!-- This is the tree node template for expandable nodes -->
+      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild"  data-widget="treeview" role="menu" data-accordion="false">
+        <li  class="nav-item has-treeview">
+            <a class="nav-link">
+              <mat-icon class="nav-icon fas {{node.icono}}"> </mat-icon>
+              <p>
+                {{node.nombre}} 
+      
+                <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.nombre" class="right">
+                  <mat-icon [ngClass]="{   
+                                      'fas':true,
+                                      'fa-angle-left':treeControl.isExpanded(node),
+                                      'fa-angle-down':!treeControl.isExpanded(node) }">
+                  </mat-icon>
+                  </button>
+              </p> 
+            </a>
+      
+            <ul *ngIf="!treeControl.isExpanded(node)" >
+              <ng-container matTreeNodeOutlet></ng-container>
+            </ul>
+        </li>
+      </mat-nested-tree-node>
+          </mat-tree>
+        </nav>
+    
+      </div>
+      </mat-sidenav>
+    
+      <mat-sidenav-content>
+        <a class="nav-link" data-widget="pushmenu"  role="button" (click)="sidenav.toggle()">
+          <i class="fas fa-bars"></i></a>
         <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
 
-      <!-- Control Sidebar -->
-      <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-      </aside>
-      <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
-    
-    
-    </div>
+
+
