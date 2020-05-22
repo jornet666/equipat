@@ -15,7 +15,7 @@ export class PerfilService {
                 }
 
     ObenerUltimoIndice() {
-        this.url = this.urlBase + 'UltimoRegistro';
+        this.url = this.urlBase + 'UltimoRegistroP';
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
@@ -25,7 +25,7 @@ export class PerfilService {
         return this._httpClient.post(this.url, '', httpOptions);
 
     }
-    AgregarMenu(perfil: Perfil) {
+    AgregarPerfil(perfil: Perfil) {
         this.url = this.urlBase + 'RegistroPerfil';
         const body = JSON.stringify(perfil);
         const httpOptions = {
@@ -35,8 +35,8 @@ export class PerfilService {
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
-    EditarrPerfil(perfil: Perfil) {
-        this.url += 'EditarPerfil';
+    EditarPerfil(perfil: Perfil) {
+        this.url = this.urlBase + 'RegistroPerfilUpdate';
         console.log(this.url);
         const body = JSON.stringify(perfil);
         const httpOptions = {
