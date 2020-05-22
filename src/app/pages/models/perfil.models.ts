@@ -1,9 +1,9 @@
 export class Perfil{
     constructor(
-        cve_perfil: number,
-        nombre: string,
-        puedevertodo: boolean,
-        activo: boolean,
-        cve_tipoestructura: number
+        public cve_perfil: number,
+        public nombre: string,
+        public puedevertodo: boolean,
+        public activo: boolean,
+        public cve_tipoestructura: number
     ){}
 }

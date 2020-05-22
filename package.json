@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
+        "start": "ng serve --proxy-config proxy.conf.json",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -20,6 +21,7 @@
         "@angular/platform-browser": "~8.2.4",
         "@angular/platform-browser-dynamic": "~8.2.4",
         "@angular/router": "~8.2.4",
+        "@types/jquery": "^3.3.38",
         "@webpack-cli/init": "^0.3.0",
         "bootstrap": "^4.5.0",
         "bootstrap-icons": "^1.0.0-alpha4",

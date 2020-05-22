@@ -1,4 +1,4 @@
-export class UsuarioModel {
+export class Usuario {
     constructor(
         public cve_usuario: number,
         public password: string,

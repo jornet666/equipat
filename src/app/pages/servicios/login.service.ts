@@ -15,7 +15,7 @@ export class LoginService {
         const body = {  usuario: usuarioV,
                         password: passwordV
                     };
-        console.log(body);
+        
         const header = new HttpHeaders().set('Content-Type', 'application/json');
 
         const httpOptions = {headers: new HttpHeaders().set('Content-Type', 'application/json')};

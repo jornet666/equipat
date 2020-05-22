@@ -1,0 +1,39 @@
+.home-sidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+   
+    
+  }
+
+  .example-events {
+    width: 200px;
+    height: 200px;
+    overflow: auto;
+    border: 1px solid #555;
+  }
+
+.side-bar{
+width: 304px;
+min-width: 304px;
+background-color: rgba(31, 30, 30, 0.9) !important ;
+}
+   
+.right{ 
+float: right;
+}
+.menu-head{
+    font-size: 20px;
+    color: rgba(146, 145, 145, 0.876) !important;
+    
+    width: 100%;
+}
+
+.liHead{
+    background-color: rgba(61, 61, 61, 0.698);
+}
+.liSub{
+    background-color: rgba(87, 85, 85, 0.698);
+}

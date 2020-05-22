@@ -1,7 +1,4 @@
-<link rel="stylesheet" href="../../../assets/plugins/fontawesome-free/css/all.min.css"> 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-<!-- Content Header (Page header) -->
+
 
 <section class="content-header">
     <div class="container-fluid">
@@ -53,7 +50,7 @@
                     <td>{{r.cve_menu}}</td>
                     <td>{{r.nombre}}</td>
                     <td>{{r.pagina}}</td>
-                    <td>{{r.activo}}</td>
+                    <td>{{r.activo?'Activo':'Inactivo'}}</td>
                     </tr>
                 </tbody>
             
@@ -91,17 +88,17 @@
                             <div class="row form-group col-md-6">
                                 <label for="cve_menu">Clave </label>
                                 <input type="text" class="form-control" name="cve_menu" formControlName='cve_menu'  disabled required />
-                                <span *ngIf ="menuForm.cve_menu && !menuForm.cve_menu.valid">*</span> 
+                                <span *ngIf ="M.cve_menu && !M.cve_menu.valid">*</span> 
                             </div>
                             
                             <div class="row form-group col-md-10">
                                 <label for="nombre">Nombre</label>
                                 <input type="text" class="form-control" name="nombre" formControlName='nombre' placeholder="nombre" required />
-                                <span *ngIf ="menuForm.nombre && !menuForm.nombre.valid">*</span> 
+                                <span *ngIf ="M.nombre && !M.nombre.valid">*</span> 
                             </div>
                             <div class="form-group">
                                 <label for="cve_padre">Menú padre</label>
-                                <select class="form-control" name="cve_padre" formControlName='cve_padre'>
+                               <select class="form-control" name="cve_padre" formControlName='cve_padre'>
                                     <option [value]= "0">SELECCIONE PADRE</option>
                                     <option *ngFor="let o of listaMenuSelect" [value] = "o.cve_menu" >{{o.nombre}}</option>
                                 </select>
@@ -109,13 +106,14 @@
                             <div class="row form-group col-md-10">
                                 <label for="pagina">Pagina</label>
                                 <input type="text" class="form-control" name="pagina" formControlName='pagina' placeholder="página" required />
-                                <span *ngIf ="menuForm.pagina && !menuForm.pagina.valid">*</span> 
+                                <span *ngIf ="M.pagina && !M.pagina.valid">*</span> 
                             </div>
                             <div class="row form-group col-md-10">
                                 <label for="imagen">Icono</label>
-                                <div></div>
-                                <input type="hidden" class="form-control" name="imagen" formControlName='imagen' placeholder="imagen" required />
-                                <span *ngIf ="menuForm.imagen && !menuForm.imagen.valid">*</span> 
+                                <input type="hidden"  name="imagen" formControlName='imagen' value="{{iconoE}}" />
+                            </div>
+                            <div class="row form-group col-md-10">
+                                <label style="display: inline-block; font-size: 40px;" ><i class="fas nav-icon {{iconoE}}"></i></label>
                             </div>
                             <div class="row form-group col-md-10">
                                 <label for="tooltip">ToolTip</label>
@@ -137,7 +135,10 @@
                         <div class="card-body col-md-6 overflow-auto" style="height: 600px;" role="document">
                             <ul class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list">
                                 <li class="col-mb-4"  *ngFor="let i of iconosVer"> 
-                                    <div [innerHTML]="i" class="p-3 py-4 mb-2 bg-light text-center rounded" style="font-size: xx-large;"></div>
+                                    <div  class="p-3 py-4 mb-2 bg-light text-center rounded" style="font-size: xx-large;" (click)="EscogerIcono(i)">
+                                    <i class="fas nav-icon {{i}}"></i>
+
+                                    </div>
                                 </li>
     
                             </ul>
@@ -161,22 +162,3 @@
     <!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-
-
-
-   <!-- jQuery -->
-   <script src="../../../assets/plugins/jquery/jquery.min.js"></script>
-   <!-- Bootstrap 4 -->
-   <script src="../../../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <!-- DataTables -->
-   <script src="../../../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-   <script src="../../../assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-   <script src="../../../assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-   <script src="../../../assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-   <!-- AdminLTE App -->
-   <script src="../../../assets/dist/js/adminlte.min.js"></script>
-   <!-- AdminLTE for demo purposes -->
-   <script src="../../../assets/dist/js/demo.js"></script>
-   <!-- page script -->
-  
-</div>
