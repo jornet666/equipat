@@ -16,7 +16,6 @@ const APP_ROUTES: Routes = [
         ]},
     {path: '**', pathMatch: 'full', redirectTo: 'login'},
 
-
 ];
 
 // tslint:disable-next-line: variable-name

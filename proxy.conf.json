@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://renoenlineaapi.azurewebsites.net",
+        "secure": true,
+        "loglevel": "debug"
+    }
+}

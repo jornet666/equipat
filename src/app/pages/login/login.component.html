@@ -1,169 +1,108 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 
-<div class="sidenav">
-    <div class="login-main-text">
-        <h2>Application<br> Login Page</h2>
-        <p>Login or register from here to access.</p>
-    </div>
-</div>
-<div class="main">
-    <div class="col-md-6 col-sm-12">
-        <div class="login-form">
-            <form>
-                <div class="form-group">
-                    <label>User Name</label>
-                    <input type="text" class="form-control" placeholder="User Name">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-black">Login</button>
-                <button type="submit" class="btn btn-secondary">Register</button>
-            </form>
-        </div>
-    </div>
-</div>
 
-<div class="clearfix borderbox" id="page">
-    <!-- group -->
-    <div class="clearfix grpelem" id="pu242">
-        <!-- group -->
-        <div class="clearfix grpelem" id="u242">
-            <!-- column -->
-            <div class="clearfix colelem" id="u307">
-                <!-- group -->
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+        <div class="card login-card">
+            <div class="row no-gutters">
 
-                <form class="form-grp clearfix grpelem" id="widgetu245" method="post" enctype="multipart/form-data" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <!-- none box -->
-                    <div class="fld-grp clearfix colelem" id="widgetu246" data-required="true" data-sizePolicy="fluidWidth" data-pintopage="page_fluidx">
-                        <!-- none box -->
-                        <span class="fld-input NoWrap actAsDiv clearfix grpelem" id="u248-4"><!-- content -->
-        <div id="u248-3">
 
-            <input class="wrapped-input" type="text" spellcheck="false" id="usuario" name="usuario" tabindex="1" formControlName="usuario"  [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }"/>
-            <label class="wrapped-input fld-prompt" id="widgetu246_prompt" for="widgetu246_input">
-                <span class="actAsPara">Usuario</span>
-                        </label>
-                        <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
-                            <div *ngIf="f.usuario.errors.required">usuario requerido</div>
+                <div class="verdeuno col-md-7 ">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col ">
+                                <h2>
+                                    Te damos la</h2>
+                            </div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="w-100"></div>
+                            <div class="col"></div>
+                            <div class="col">
+                                <h2>BIENVENIDA</h2>
+                            </div>
+                            <div class="col"></div>
                         </div>
                     </div>
-                    </span>
-            </div>
-            <div class="fld-grp clearfix colelem" id="widgetu258" data-required="true" data-type="password" data-sizePolicy="fluidWidth" data-pintopage="page_fluidx">
-                <!-- none box -->
-                <span class="fld-input NoWrap actAsDiv clearfix grpelem" id="u260-4"><!-- content -->
-            <div id="u260-3">
-                <input class="wrapped-input" type="password" spellcheck="false" id="password" name="password" tabindex="2" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"/>
-                <label class="wrapped-input fld-prompt" id="widgetu258_prompt" for="widgetu258_input">
-                    <span class="actAsPara">Contraseña</span>
-                </label>
-                <div *ngIf="submitted && f.usuario.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">usuario requerido</div>
+
                 </div>
-            </div>
-            </span>
-        </div>
-        <div class="clearfix colelem" id="pu250-4">
-            <!-- group -->
-            <div class="clearfix grpelem" id="u250-4">
-                <!-- content -->
-                <p>Enviando formulario...</p>
-            </div>
-            <div class="clearfix grpelem" id="u256-4">
-                <!-- content -->
-                <p>El servidor ha detectado un error.</p>
-            </div>
-            <div class="clearfix grpelem" id="u251-4">
-                <!-- content -->
-                <p>Formulario recibido.</p>
-            </div>
-            <button class="submit-btn NoWrap rounded-corners clearfix grpelem" id="u257-4" type="submit" value="Enviar" tabindex="3"><!-- content -->
-         <div style="margin-top:-27px;height:27px;">
-          <p>Enviar</p>
-         </div>
-        </button>
-        </div>
-        </form>
-        <div class="grpelem" id="u298">
-            <!-- simple frame -->
-        </div>
-        <div class="grpelem" id="u304">
-            <!-- simple frame -->
-        </div>
-    </div>
-    <div class="clearfix colelem" id="u310-4">
-        <!-- content -->
-        <p>¿Olvidaste tu contraseña?</p>
-    </div>
-</div>
-<div class="clearfix grpelem" id="u235-6">
-    <!-- content -->
-    <p>INICIA</p>
-    <p>SESIÓN</p>
-</div>
-<div class="grpelem" id="u238">
-    <!-- simple frame -->
-</div>
-<div class="grpelem" id="u97">
-    <!-- simple frame -->
-</div>
-<div class="clearfix grpelem" id="u94">
-    <!-- column -->
-    <div class="position_content" id="u94_position_content">
-        <div class="clearfix colelem" id="u142">
-            <!-- column -->
-            <div class="clearfix colelem" id="u128">
-                <!-- column -->
-                <div class="position_content" id="u128_position_content">
-                    <div class="clearfix colelem" id="u122">
-                        <!-- group -->
-                        <div class="clearfix grpelem" id="u125-4">
-                            <!-- content -->
-                            <p>Te damos la</p>
+                <div class="col-md-5">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="float-right">
+                                    <h3>INICIA </h3>
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col">
+                                <div class="float-right">
+                                    <h3>SESIÓN </h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="clearfix colelem" id="u131-4">
-                        <!-- content -->
-                        <p>BIENVENIDA</p>
+
+                </div>
+            </div>
+
+            <div class="row no-gutters ">
+                <div class="verde col-md-7">Plataforma móvil de Sociedad Financiera Equípate</div>
+                <div class="verdetres col-md-5">
+                </div>
+            </div>
+
+            <div class="row no-gutters colorfondologin">
+                <div class="col-md-7">
+                    <img src="../../../assets/images/shutterstock_161599079-crop-u155.jpg" class="sizeimage img-fluid" alt="Responsive image">
+                    <!-- <img src="../../../assets/images/shutterstock_161599079-crop-u155.jpg" alt="login" class="login-card-img"> -->
+                </div>
+                <div class="col-md-5">
+                    <div class="card-body colorfondologin">
+                        <!-- <div class="brand-wrapper">
+                            <img src="assets/images/logo.svg" alt="logo" class="logo">
+                        </div> -->
+                        <form #formtoken="ngForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                            <!-- <form #formtoken="ngForm" [formGroup]="registerForm" (ngSubmit)="continuar(formtoken)"> -->
+                            <div class="form-group ">
+                                <input formControlName="usuario" type="text" class="form-control fadeIn second" [(ngModel)]="usuario" tabindex="1 " [ngClass]="{ 'is-invalid': submitted && f.usuario.errors }" placeholder="Usuario " />
+
+                                <div *ngIf="submitted && f.usuario.errors " class="invalid-feedback ">
+                                    <div *ngIf="f.usuario.errors.required ">Usuario requerido</div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4 ">
+                                <input type="password" formControlName="password" class="form-control fadeIn second" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" placeholder="Introducir contraseña" />
+                                <div *ngIf="submitted && f.usuario.errors " class="invalid-feedback ">
+                                    <div *ngIf="f.password.errors.required ">Contraseña requerida</div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center ">
+                                <button type="button " class="btn verde ">Enviar</button>
+                            </div>
+                        </form>
+                        <br>
+                        <div class="d-flex justify-content-center ">
+                            <a href="#! " class="forgot-password-link colorverde ">¿Olvidaste tu contraseña?</a>
+                        </div>
+
                     </div>
                 </div>
             </div>
-            <div class="clearfix colelem" id="u136">
-                <!-- group -->
-                <div class="clearfix grpelem" id="u139-4">
-                    <!-- content -->
-                    <p>Plataforma móvil de Sociedad Financiera Equípate</p>
+            <div class="row no-gutters ">
+                <div class="col-md-7 ">
+                    <img src="../../../assets/images/svg pegado 512x87_poster_.png " class="img-fluid sizeimage " alt="Responsive image ">
                 </div>
             </div>
-        </div>
-        <div class="clip_frame colelem" id="u155">
-            <!-- image -->
-            <img class="block" id="u155_img" src="images/shutterstock_161599079-crop-u155.jpg?crc=140708024" alt="" data-heightwidthratio="0.68359375" data-image-width="512" data-image-height="350" />
-        </div>
-        <div class="clip_frame colelem" id="u170">
-            <!-- svg -->
-            <img class="svg" id="u168" src="images/svg-pegado-512x87.svg?crc=346329394" alt="" data-mu-svgfallback="images/svg%20pegado%20512x87_poster_.png?crc=60531858" data-heightwidthratio="0.169921875" data-image-width="512" data-image-height="87" />
-        </div>
-    </div>
-</div>
-</div>
-<div class="verticalspacer" data-offset-top="629" data-content-above-spacer="629" data-content-below-spacer="61" data-sizePolicy="fixed" data-pintopage="page_fixedLeft"></div>
-<div class="browser_width grpelem" id="u207-bw">
-    <div id="u207">
-        <!-- group -->
-        <div class="clearfix" id="u207_align_to_page">
-            <div class="clearfix grpelem" id="u210-4">
-                <!-- content -->
-                <p>SOCIEDAD FINANCIERA EQUÍPATE S.A. DE C.V. SOFOM E.N.R.</p>
-            </div>
-        </div>
-    </div>
-</div>
 
-</div>
+        </div>
+    </div>
+</main>
+
+<app-footer></app-footer>

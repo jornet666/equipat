@@ -10,8 +10,7 @@ import { error } from 'protractor';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css',
-              '../../../assets/plugins/fontawesome-free/css/all.min.css'
+  styleUrls: ['./menu.component.css'
             ],
   providers: [MenuService]
 })
@@ -29,7 +28,8 @@ export class MenuComponent implements OnInit {
     nMenu: any;
     accion: string;
     respuesta: any;
-  openform: boolean = false;
+    openform: boolean = false;
+    iconoE: string;
   constructor(private _menuService: MenuService,
               private formBuilder: FormBuilder
             ) {
@@ -97,7 +97,8 @@ export class MenuComponent implements OnInit {
         this.menuForm.controls.cve_menu.setValue(response['cve_menu']);
         this.menuForm.controls.cve_padre.setValue(response['cve_padremenu']);
         this.menuForm.controls.pagina.setValue(response['pagina']);
-        //this.menuForm.controls.icono.setValue(response['icono']);
+        this.menuForm.controls.imagen.setValue(response['imagen']);
+        this.iconoE = response['imagen'];
         this.menuForm.controls.tooltip.setValue(response['tooltip']);
         this.menuForm.controls.activo.setValue(response['activo']);
         this.menuForm.controls.visible.setValue(response['visible']);
@@ -113,6 +114,7 @@ export class MenuComponent implements OnInit {
   }
  
   OnSubmit() {
+    
     const  menu = new Menu(
                 0,
                 this.menuForm.controls.cve_menu.value,
@@ -129,36 +131,32 @@ export class MenuComponent implements OnInit {
     if (this.accion === 'A') {
       
       this._menuService.AgregarMenu(menu).subscribe(
-        response =>{
-            console.log(response);
+        response => {
             this.menuForm.reset();
             this.ObtenerLista();
-            
-        },
+          },
         error => {
           console.log(error);
         }
       );
-     
     }
     else if (this.accion === 'E')
     {
       this._menuService.EditarrMenu(menu).subscribe(
         response => {
-          console.log(response);
           this.menuForm.reset();
           this.ObtenerLista();
         }
         ,error => {
             console.log(error);
-            
-        }
+          }
         );
     }
-    
   }
   getClassesAndIds() {
-    var sheet = document.styleSheets.item(12);
+    console.log(document.styleSheets);
+    
+    var sheet = document.styleSheets.item(3);
     var rule, rules;
     var temp;
 
@@ -170,13 +168,21 @@ export class MenuComponent implements OnInit {
         rule = rules[j]['selectorText'];
         temp = (rule).match(/\::befor\w+/g);
         if (temp) {
-          let ic = ('<i class="nav-icon fas ' + rule + '"></i>').replace('.', '');
+          let ic = ('' + rule ).replace('.', '');
           ic = ic.replace('::before', '');
-          this.iconosVer.push(ic);
+          if(ic.length > 0){
+            this.iconosVer.push(ic);
+          }
+          
           }
       }
 
     }
+  }
+  EscogerIcono(i){
+    this.iconoE = i;
+    this.menuForm.controls.imagen.setValue(i);
+    console.log( this.menuForm.controls.imagen.value);
   }
   LlenarListaMenu() {
 

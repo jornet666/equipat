@@ -1,27 +1,31 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {PerfilService} from '../servicios/perfiles.service';
+import {UsuarioService} from '../servicios/usuarios.service';
 import {SeguridadService} from '../servicios/seguridad.service';
-import {UsuarioModel} from '../models/usuario.models';
+import {PerfilService} from '../servicios/perfiles.service';
+import {Usuario} from '../models/usuario.models';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-usuarios',
   templateUrl: './usuarios.component.html',
   styleUrls: ['./usuarios.component.css'],
-  providers: [PerfilService, SeguridadService]
+  providers: [UsuarioService, SeguridadService, PerfilService]
 })
 export class UsuariosComponent implements OnInit {
-  listTPerfil: any;
+  listTUsuario: any;
+  listaUsuarioSelect: any;
   usuarioform: FormGroup;
   openform: boolean = false;
   accionBoton: string = '';
   nameAccion: string = '';
   accion: string= '';
-  existePerfil: boolean = false;
+  existeUsuario: boolean = false;
   constructor(
-              private _perfilservice: PerfilService,
+              private _usuarioService: UsuarioService,
               private formbuilder: FormBuilder,
-              private _seguridadService: SeguridadService
+              private _seguridadService: SeguridadService,
+              private _perfilService: PerfilService
             ) { 
               this.usuarioform = this.formbuilder.group({
                    cve_usuario:  0,
@@ -46,15 +50,60 @@ export class UsuariosComponent implements OnInit {
             }
 
   ngOnInit() {
+    this.ObtenerListaTable();
+    
   }
-  OnSubmit(){
+  OnSubmit() {
+    let usuario = new Usuario(
+        this.usuarioform.controls.cve_usuario.value,
+        this.usuarioform.controls.password.value,
+        this.usuarioform.controls.cve_perfil.value,
+        0,
+        0,
+        0,
+        this.usuarioform.controls.cuentabloqueada.value,
+        this.usuarioform.controls.activo.value,
+        0,
+        0,
+        0,
+        0,
+        this.usuarioform.controls.nombre.value,
+        0,
+        this.usuarioform.controls.email.value,
+        this.usuarioform.controls.telefono.value,
+        this.usuarioform.controls.email_copias.value
+    );
+    if (this.accion === 'A') {
+      this._usuarioService.AgregarUsuario(usuario).subscribe(
+        response => {
+          console.log(response);
+          this.usuarioform.reset();
+          this.ObtenerListaTable();
 
+        }
+        , error => {
+          console.log(error);
+        }
+
+      );
+    } else if (this.accion === 'E') {
+      this._usuarioService.EditarUsuario(usuario).subscribe(
+        response => {
+          console.log(response);
+          this.usuarioform.reset();
+          this.ObtenerListaTable();
+        }
+        ,error => {
+          console.log(error);
+        }
+      );
+    }
   }
   ObtenerListaTable(pagina= 1, longitud= 20, criterio = '') {
-    this._perfilservice.ObtenerListaTabla(pagina, longitud, criterio).subscribe(
+    this._usuarioService.ObtenerListaTabla(pagina, longitud, criterio).subscribe(
       response => {
-
-      this.listTPerfil = response;
+        console.log(response);
+        this.listTUsuario = response;
       }
       // tslint:disable-next-line: no-shadowed-variable
       , error => {
@@ -67,9 +116,9 @@ export class UsuariosComponent implements OnInit {
     this.nameAccion = 'Agegar nuevo';
     this.accionBoton = 'Agregar';
     this.accion = 'A';
-    this._perfilservice.ObenerUltimoIndice().subscribe(
+    this._usuarioService.ObenerUltimoIndice().subscribe(
       response => {
-        this.usuarioform.controls.cve_perfil.setValue(response['respuesta']);
+        this.usuarioform.controls.cve_usuario.setValue(response['respuesta']);
       }
       , error => {
         console.log(error);
@@ -78,31 +127,50 @@ export class UsuariosComponent implements OnInit {
     );
     
   }
-  AbrirEditar(cve_perfil, nombre, activo) {
+  AbrirEditar(cve_usuario) {
     this.openform = true;
     this.nameAccion = 'Editar';
     this.accionBoton = 'Actualizar';
     this.accion = 'E';
-    this.usuarioform.controls.cve_perfil.setValue(cve_perfil);
-    this.usuarioform.controls.nombre.setValue(nombre);
-    this.usuarioform.controls.activo.setValue(activo);
-    this.existePerfil = true;
-    
+    this.LlenarListaPerfiles();
+    this._usuarioService.ObtenerDetallUsuario(cve_usuario).subscribe(
+      response => {
+
+        this.usuarioform.controls.cve_usuario.setValue(response['cve_usuario']);
+        this.usuarioform.controls.password.setValue(response['password']);
+        this.usuarioform.controls.cve_perfil.setValue(response['cve_perfil']);
+        this.usuarioform.controls.cuentabloqueada.setValue(response['cuentabloqueada']);
+        this.usuarioform.controls.nombre.setValue(response['nombre']);
+        this.usuarioform.controls.activo.setValue(response['activo']);
+        this.usuarioform.controls.email.setValue(response['email']);
+        this.usuarioform.controls.email_copias.setValue(response['email_copias']);
+        this.usuarioform.controls.telefono.setValue(response['telefono']);
+        this.openform = true;
+        this.existeUsuario = true;
+      }
+      , error => {
+          console.log(error);
+
+        }
+    );
   }
-  RegresaraTabla(){
+  RegresaraTabla() {
     this.openform = false;
     this.usuarioform.reset();
-    this.existePerfil = false;
+    this.existeUsuario = false;
   }
   get P() { return this.usuarioform.controls; }
-  GuardarPerfil(cve_menu) {
-    let cve_perfil = this.usuarioform.controls.cve_perfil.value;
-    this._seguridadService.AgregarMenuaPerfil(cve_perfil,cve_menu).subscribe(
-    response => {
-      console.log(response);
-    },error => {
-      console.log(error);
-    }
+  LlenarListaPerfiles(){
+    this._perfilService.ObtenerListaSelect().subscribe(
+      response => {
+        
+        
+         this.listaUsuarioSelect = response;
+      }
+      ,error => {
+          console.log(error);
+      }
+
     );
   }
 }

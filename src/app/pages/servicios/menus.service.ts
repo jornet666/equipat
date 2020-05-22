@@ -55,21 +55,16 @@ export class MenuService {
     }
     EditarrMenu(menu: Menu) {
         this.url = this.urlBase + 'RegistroMenuUpdate';
-        console.log(this.url);
+        
         const body = JSON.stringify(menu);
+        console.log(body);
+        
         const httpOptions = {
                     headers: new HttpHeaders({
                     'Content-Type':  'application/json'
                     })
                     };
-        this._httpClient.post(this.url, body, httpOptions).subscribe(
-        result => {
-        console.log(result);
-        },
-        error => {
-        console.log(error);
-        });
-        return this.respuesta;
+        return this._httpClient.post(this.url, body, httpOptions);
     }
     ObtenerListaTabla(pagina, longitud, criterios = '') {
         this.url = this.urlBase + 'ListadoMenus';

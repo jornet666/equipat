@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import {LoginService} from '../servicios/login.service';
 import {Router} from '@angular/router';
-
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,7 @@ import {Router} from '@angular/router';
 export class LoginComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
+  usuario: string;
   constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) { }
   usuarioValido: boolean;
 
@@ -22,13 +23,13 @@ export class LoginComponent implements OnInit {
         usuario: ['', Validators.required],
         password: ['', Validators.required]
       });
-      this._loginService.ValidarUsuario('test', '123456789');
+      //this._loginService.ValidarUsuario('test', '123456789');
 
   }
 
   get f() { return this.registerForm.controls; }
 
-  onSubmit(){
+  onSubmit(form: NgForm){
     this.submitted = true;
 
     if(this.registerForm.invalid) {
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
       {
         this.router.navigate(['/home']);
       } else {
-        alert('Usuario inválido');
+        swal.fire('Advertencia', 'Usuario o contraseña incorrecto', 'warning')
       }
     }
   }
