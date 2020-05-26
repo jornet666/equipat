@@ -3,6 +3,8 @@ export class catalogo {
     legend: string;
 }
 
-export class usuario {
-    cveusuario: number;
+export class Usuario {
+    cveusuario: string;
+    nombre: string;
+    sucursal: string;
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../services/notificaciones.service';
+import { Usuario } from '../models/usuario.models';
 
 @Component({
   selector: 'app-notificaciones',
@@ -10,12 +11,30 @@ import { NotificacionesService } from '../../services/notificaciones.service';
 })
 export class NotificacionesComponent implements OnInit {
 
+  /** Fechas de notificaciones */
+
+  collectionfechas = { count: 10, data: [] };
+  configfechas = {
+    id: 'custom',
+    itemsPerPage: 5,
+    currentPage: 1,
+    totalItems: this.collectionfechas.count
+  };
+
+  public showdetale = true;
+  public showusuarionotificaciones = false;
+  public showcampania = false;
   public show = false;
   public buttonName: any = 'Show';
-
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings = {};
+  municipiolista: any;
+  /** Configuraciones para sucursal */
+  dropdownListSucursal = [];
+  selectedItemsSucursal = [];
+  dropdownSettingsSucursal = {};
+   /** Configuraciones para productos */
+  dropdownListProductos = [];
+  selectedItemsProductos = [];
+  dropdownSettingsProductos = {};
   collection = { count: 60, data: [] };
   config = {
     id: 'custom',
@@ -36,53 +55,67 @@ export class NotificacionesComponent implements OnInit {
       screenReaderCurrentLabel: `You're on page`
   };
   constructor(private spinner: NgxSpinnerService, private service: NotificacionesService) {
-    for (let i = 0; i < this.collection.count; i++) {
-      this.collection.data.push(
+    debugger;
+    for (let i = 0; i < this.collectionfechas.count; i++) {
+      this.collectionfechas.data.push(
         {
           id: i + 1,
           value: 'items number ' + (i + 1)
         }
       );
     }
+    console.log(this.collectionfechas);
   }
 
   ngOnInit() {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
+    this.spinner.show();
+    this.service.cargaFiltros().subscribe( resp => {
+      // tslint:disable-next-line: no-string-literal
+      this.dropdownListSucursal = resp['listasucursal'];
+      this.selectedItemsSucursal = [
+      ];
+      this.dropdownSettingsSucursal =  {
+        singleSelection: false,
+        idField: 'cvecatalogo',
+        textField: 'descripcion',
+        selectAllText: 'Seleccionar todo',
+        unSelectAllText: 'Quitar selección',
+        itemsShowLimit: 3,
+        allowSearchFilter: false
+      };
+      // tslint:disable-next-line: no-string-literal
+      this.dropdownListProductos = resp['listaproductos'];
+      this.selectedItemsProductos = [
+      ];
+      this.dropdownSettingsProductos =  {
+        singleSelection: false,
+        idField: 'cvecatalogo',
+        textField: 'descripcion',
+        selectAllText: 'Seleccionar todo',
+        unSelectAllText: 'Quitar selección',
+        itemsShowLimit: 3,
+        allowSearchFilter: true
+      };
+      this.spinner.hide();
+    });
 
-    ];
-    this.dropdownSettings =  {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Seleccionar todo',
-      unSelectAllText: 'Quitar selección',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
-
-    //  /** spinner starts on init */
-    // this.spinner.show();
-    // setTimeout(() => {
-    //    /** spinner ends after 5 seconds */
-    //    this.spinner.hide();
-    //  }, 5000);
   }
   onPageChange(event) {
     console.log(event);
     this.config.currentPage = event;
   }
 
-  onItemSelect(item: any) {
+  onItemSelectSucursal(item: any) {
     console.log(item);
   }
-  onSelectAll(items: any) {
+  onSelectAllSucursal(items: any) {
+    console.log(items);
+  }
+
+  onItemSelectProductos(item: any) {
+    console.log(item);
+  }
+  onSelectAllProductos(items: any) {
     console.log(items);
   }
 
@@ -102,12 +135,28 @@ export class NotificacionesComponent implements OnInit {
     swal.fire('Información', 'Selecciona una sucursal para poder filtrar', 'info');
   }
 
+  detalleproductos() {
+    swal.fire('Información', 'Selecciona un producto para poder filtrar', 'info');
+  }
+
+
+  cargafiltros() {
+
+  }
+
   cargaregistrospush() {
-    // tslint:disable-next-line: no-debugger
-    debugger;
     this.spinner.show();
     this.service.cargaFiltrotodo().subscribe( resp => {
-    this.spinner.hide();
+      console.log(resp);
+      debugger;
+      // tslint:disable-next-line: prefer-for-of
+      for (let index = 0; index < resp; index++) {
+        console.log('este es un ejemplo');
+      }
+      this.collection.data.push(
+      );
+      console.log(resp);
+      this.spinner.hide();
     });
   }
 
