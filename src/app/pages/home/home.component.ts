@@ -8,6 +8,7 @@ import {MenuService, Menu_tree } from '../servicios/menus.service';
 import {SeguridadService} from '../servicios/seguridad.service';
 import {Observable} from 'rxjs';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -36,12 +37,13 @@ export class HomeComponent implements OnInit {
   constructor(changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher,
               private _menuService: MenuService,
-              private _seguridadService: SeguridadService
+              private _seguridadService: SeguridadService,
+              private spinner: NgxSpinnerService
   ){
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    // this.listaModulos = 
+    // this.listaModulos =
   }
 
   //Variables
@@ -53,7 +55,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.ObtenerLista();
     this.ObtenerMenuTree();
-  
+
   }
   ngAfterViewInit() {
   }
@@ -63,6 +65,7 @@ ObtenerLista() {
 
 }
 ObtenerMenuTree() {
+  this.spinner.show();
   let ArrayS;
   this.dataSource.data = null;
   this._seguridadService.ObtnerMenuPorPerfil(2).subscribe(
@@ -86,13 +89,13 @@ ObtenerMenuTree() {
        this.dataSource.data = this._menuService.GetTreeView();
     },error => {
         console.log(error);
-
+        this.spinner.hide();
     }
 );
 
 }
   hasChild = (_: number, node: Menu_tree) => !!node.children && node.children.length > 0;
-  
+
 
 
 }

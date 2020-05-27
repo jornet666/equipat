@@ -1,32 +1,57 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificacionesService {
-  constructor(private http: HttpClient) { }
+
+  public urlBase: string;
+  public url: string;
+
+  constructor(private http: HttpClient) {
+    this.urlBase = '/api/site/';
+   }
+
+   /**
+    * Carga todos los filtros para la busqueda
+    */
+  cargaFiltros() {
+    this.url = this.urlBase + 'filtrospush';
+    const body = {
+    };
+    const httpOptions = {
+                headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+                })
+                };
+    return this.http.post(this.url, JSON.stringify(body), httpOptions);
+  }
+
+
+
   /**
    * Este metodo obtiene todos los registros de los clientes que estan registrados en la plataforma movil
    */
   cargaFiltrotodo() {
-    const body = {
 
+    this.url = this.urlBase + 'clientespush';
+    const body = {
     };
     const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })
-    };
-    return this.http.post(environment.url + 'loginuser', body, httpOptions);
+                headers: new HttpHeaders({
+                'Content-Type':  'application/json'
+                })
+                };
+    return this.http.post(this.url, JSON.stringify(body), httpOptions);
   }
 
   /**
    * Este metodo obtiene todos los registros filtrados
    */
 
-  cargaFiltrado() {
+  cargaFiltradoSeleccion() {
     const body = {
 
     };

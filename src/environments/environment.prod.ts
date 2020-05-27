@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url: ''
+  url: 'https://renoenlineaapi.azurewebsites.net/api/site/'
 };
