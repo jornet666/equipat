@@ -1,93 +1,84 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    
+    <!-- Content Header (Page header) -->    
     <section class="content-header">
         <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-            <h1>Usuarios</h1>
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Usuarios</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+                        <li class="breadcrumb-item active">Perfiles</li>
+                    </ol>
+                </div>
             </div>
-            <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
-                <li class="breadcrumb-item active">Perfiles</li>
-            </ol>
-            </div>
-        </div>
         </div><!-- /.container-fluid -->
     </section>
     
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-        <div class="row" id="tablaPantalla" *ngIf="!openform">
-            <div class="col-12">
-            <div class="card">
-                <div class="card-header row">
-                <div class="col-md-10">
-                    <h3 class="card-title">Listado de Usuarios</h3>
-                </div>
-                <div class="col-md-2  text-center">
-                    <button (click)="AbrirAgregar()" href="#" class="btn btn-primary my-2" ><i></i>Agregar Nuevo</button>
-                </div>
-                
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-                <table id="tbMenus" class="table  table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>EDITAR</th>
-                        <th>CLAVE</th>
-                        <th>USUARIO</th>
-                        <th>NOMBRE</th>
-                        <th>ACTIVO</th>
-                    
-                    </tr>
-                    </thead>
-                    <tbody >
-                        <tr *ngFor="let r of listTUsuario">
-                        <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_perfil,r.nombre, r.activo)"></i></td>
-                        <td>{{r.cve_perfil}}</td>
-                        <td>{{r.nombre}}</td>
-                        <td>{{r.activo?'Activo':'Inactivo'}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            </div>
-            <!-- /.col -->
-        
-        </div>
-        <div class="row" id=formPantalla #formPantalla *ngIf="openform">
-            <!-- left column -->
-            <div class="col-md-12">
-                <!-- general form elements -->
-                <div class="card card-primary">
-                    <div class="card-header row">
-                        <div class="col-md-2">
-                            <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+            <div class="row" id="tablaPantalla" *ngIf="!openform">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header row">
+                            <div class="col-md-10">
+                                <h3 class="card-title">Listado de Usuarios</h3>
+                            </div>
+                            <div class="col-md-2  text-center">
+                                <button (click)="AbrirAgregar()" href="#" class="btn btn-primary my-2" ><i></i>Agregar Nuevo</button>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <h3 class="card-title">{{nameAccion}}</h3>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="tbMenus" class="table  table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>EDITAR</th>
+                                        <th>CLAVE</th>
+                                        <th>USUARIO</th>
+                                        <th>NOMBRE</th>
+                                        <th>ACTIVO</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr *ngFor="let r of listTUsuario">
+                                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_perfil,r.nombre, r.activo)"></i></td>
+                                    <td>{{r.cve_perfil}}</td>
+                                    <td>{{r.nombre}}</td>
+                                    <td>{{r.activo?'Activo':'Inactivo'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-                    <form [formGroup]="usuarioform" (ngSubmit)="OnSubmit()" role="form" >
+                <!-- /.card -->
+                </div>
+            </div>
+            <div class="row" id=formPantalla #formPantalla *ngIf="openform">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header row">
+                            <div class="col-md-2">
+                                <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+                            </div>
+                            <div class="col-md-10">
+                                <h3 class="card-title">{{nameAccion}}</h3>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <form [formGroup]="usuarioform" (ngSubmit)="OnSubmit()" role="form" >
                             <div class="row">
                                 <div class="card-body col-md-6">
-                                    					
-
                                     <div class="row form-group col-md-6">
                                         <label for="cve_usuario">Clave </label>
                                         <input type="text" class="form-control" name="cve_usuario" formControlName='cve_usuario'  disabled required />
-                                        <span *ngIf ="P.cve_usuario && !P.cve_usuario.valid">*</span> 
+                                        <span *ngIf ="P.cve_usuario && !P.cve_usuario.valid" class="alert alert-danger">*usuario inválido*</span> 
                                     </div>
                                     <div class="row form-group col-md-8">
                                         <label for="usuario">Usuario </label>
@@ -115,7 +106,7 @@
                                         </select>
                                         <span *ngIf ="P.cve_perfil && !P.cve_perfil.valid">*</span> 
                                     </div>
-                                								
+                                                                
                                     <div class="row form-group col-md-8">
                                         <label for="nombre">Nombre</label>
                                         <input type="text" class="form-control" name="nombre" formControlName='nombre' placeholder="nombre" required />
@@ -135,7 +126,7 @@
                                     <div class="row form-group col-md-8">
                                         <label for="telefono">Telefono</label>
                                         <input type="tel" class="form-control" name="telefono" formControlName='telefono' placeholder="telefono" required />
-                                        <span *ngIf ="P.telefono && !P.telefono.valid">*</span> 
+                                        <span *ngIf ="P.telefono && !P.telefono.valid" class="error">*</span> 
                                     </div>
                                     <div class="row form-group col-md-10">
                                         <div class="col-md-6 custom-control custom-checkbox">
@@ -145,22 +136,16 @@
                                     </div>
                                 </div>
                             </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">{{accionBoton}}</button>
-                        </div>
-                    </form>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">{{accionBoton}}</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
             </div>
         </div>
-       
-        <div>
-           
-        </div>
-        <!-- /.row -->
-        </div>
-        <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
     

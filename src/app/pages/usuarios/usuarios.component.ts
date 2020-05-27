@@ -29,6 +29,7 @@ export class UsuariosComponent implements OnInit {
             ) { 
               this.usuarioform = this.formbuilder.group({
                    cve_usuario:  0,
+                   usuario: '',
                    password: '',
                    cve_perfil:  0,
                    cve_menu:  0,
@@ -119,6 +120,7 @@ export class UsuariosComponent implements OnInit {
     this._usuarioService.ObenerUltimoIndice().subscribe(
       response => {
         this.usuarioform.controls.cve_usuario.setValue(response['respuesta']);
+        this.LlenarListaPerfiles();
       }
       , error => {
         console.log(error);
@@ -163,14 +165,13 @@ export class UsuariosComponent implements OnInit {
   LlenarListaPerfiles(){
     this._perfilService.ObtenerListaSelect().subscribe(
       response => {
-        
-        
          this.listaUsuarioSelect = response;
+         console.log(response);
+         
       }
       ,error => {
           console.log(error);
       }
-
     );
   }
 }

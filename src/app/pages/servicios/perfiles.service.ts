@@ -78,7 +78,7 @@ export class PerfilService {
         return this._httpClient.post(this.url, body, httpOptions);
     }
     ObtenerListaSelect(){
-        this.url = this.urlBase + 'ListadoPerfilsSelect';
+        this.url = this.urlBase + 'ListadoPerfilSelect';
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
