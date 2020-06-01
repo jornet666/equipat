@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../services/notificaciones.service';
-import { Usuario } from '../models/usuario.models';
+import { Usuario } from '../../models/usuario.models';
 import { CampaniasModel } from 'src/app/models/usuario.home';
 import { UsuarioModel } from '../../models/usuario.home';
+import {Campania} from '../../models/campania.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+
 
 
 @Component({
@@ -24,13 +27,19 @@ export class NotificacionesComponent implements OnInit {
 
   /** Fechas de notificaciones */
   contadorclientes = 0;
-  collectionfechas = { count: 1, data: [] };
-  configfechas = {
-    id: 'custom',
-    itemsPerPage: 5,
-    currentPage: 1,
-    totalItems: this.collectionfechas.count
-  };
+  contadorNotificaciones = 0;
+  listNot = [];
+  configfechas = { 
+          id: 'custom',
+          itemsPerPage: 10,
+          currentPage: 1,
+          totalItems: 0
+        }
+  campanaAct: number;
+  /**Variables correspondientes al formulario de notificaciones */
+  FormNot: FormGroup;
+
+  /**Termina Variables de Notificaciones */
   /** OCULTAR O MOSTRAR */
   public listadetalle = true;
   public showdetale = true;
@@ -51,11 +60,11 @@ export class NotificacionesComponent implements OnInit {
   dropdownSettingsProductos = {};
   collection = { count: this.contadorclientes , data: [] };
   config = {
-    id: 'custom',
-    itemsPerPage: 5,
-    currentPage: 1,
-    totalItems: this.collection.count
-  };
+      id: 'custom',
+      itemsPerPage: 5,
+      currentPage: 1,
+      totalItems: this.collection.count
+    };
 
   public maxSize = 7;
   public directionLinks = true;
@@ -68,24 +77,20 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService) {
-    /**
-     * CARGA TODAS LAS CAMPAÑAS CREADAS
-     */
-    for (let i = 0; i < this.collectionfechas.count; i++) {
-      const model = new CampaniasModel();
-      model.cvecampania = '1';
-      model.nombrecampania = 'mi primer capaña'.toUpperCase();
-      model.horacampania = '10:00 AM';
-      model.fechacampania = '12- abril - 2020';
-      model.quienlohizo = 'TEst'.toUpperCase();
-      model.estatus = true;
-      this.collectionfechas.data.push(
-        model
-      );
-    }
-    console.log(this.collectionfechas);
-  }
+  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService, private formbuilder: FormBuilder,) {
+    this.FormNot = this.formbuilder.group({
+                  Cve_campana: 0,
+                  Nombre_campana: '',
+                  Usuario_creo: sessionStorage.getItem('cve_usuario_nav').toString(),
+                  Fecha_creacion: Date.now().toString(),
+                  Sms:  false,
+                  Notificacion: false,
+                  Titulo: '',
+                  Mensaje: '',
+                  activo: true,
+                  Personalizado: false
+    });
+   }
 
   ngOnInit() {
     /**
@@ -107,9 +112,9 @@ export class NotificacionesComponent implements OnInit {
     };
 
 
-    /**
-     * CARGA TODOS LOS FILTROS
-     */
+    // /**
+    //  * CARGA TODOS LOS FILTROS
+    //  */
     this.spinner.show();
     this.service.cargaFiltros().subscribe( resp => {
       // tslint:disable-next-line: no-string-literal
@@ -138,9 +143,14 @@ export class NotificacionesComponent implements OnInit {
         itemsShowLimit: 3,
         allowSearchFilter: true
       };
+    
+    },
+    error => {
       this.spinner.hide();
+      console.log(error);
     });
-
+  this.CargarTablaNotificaciones();
+  this.spinner.hide();
   }
 
   /**
@@ -201,8 +211,9 @@ export class NotificacionesComponent implements OnInit {
   /** Agregar campanias */
   agregarcampania() {
     this.listadetalle = false;
-    this.showusuarionotificaciones = true;
+    
     this.showcampania = true;
+    this.ObtnerUltimoRegistro();
   }
 
   /**
@@ -242,8 +253,11 @@ export class NotificacionesComponent implements OnInit {
    */
   cargaregistrospush() {
     this.spinner.show();
-    this.service.cargaFiltrotodo().subscribe( resp => {
+    this.campanaAct = this.FormNot.controls.Cve_campana.value;
+
+    this.service.CargaTablaClientes(this.campanaAct).subscribe( resp => {
       console.log(resp);
+        
       // tslint:disable-next-line: forin
       for (const item in resp) {
         this.contadorclientes++;
@@ -251,12 +265,107 @@ export class NotificacionesComponent implements OnInit {
         data.cveusuario = resp[item].cveregistro;
         data.nombre = resp[item].nombre;
         data.sucursal = resp[item].sucursal;
+        data.existe = Number.parseInt(resp[item].Existe, 10) === 1 ? true : false;
         this.collection.data.push(data);
       }
       this.spinner.hide();
     });
   }
+  CargarTablaNotificaciones(){
+    this.service.CargaTablanot(1, 10, '').subscribe(
+      response =>
+        {
+          for (const item in response)
+            {
+              const data = new CampaniasModel();
+              data.cvecampania = response[item].Cve_campana;
+              data.nombrecampania = response[item].Nombre_campana;
+              data.fechacampania = response[item].Fecha_creacion;
+              data.quienlohizo = response[item].Nombre_usuario
+              data.estatus = response[item].activo;
+              this.listNot.push(data);
+          }
+          this.configfechas = {
+                  id: 'custom',
+                  itemsPerPage: 10,
+                  currentPage: 1,
+                  totalItems: response[0].totalRegistros
+          }
+          this.spinner.hide();
+        },
+      error => 
+        {
+          console.log(error);
+        }
+    );
+  }
+  GuardarCampania(){
+    let camp = new Campania(
+                this.FormNot.controls.Cve_campana.value,
+                this.FormNot.controls.Nombre_campana.value,
+                this.FormNot.controls.Usuario_creo.value,
+                '',
+                this.FormNot.controls.Fecha_creacion.value,
+                this.FormNot.controls.Sms.value ? 1 : 0,
+                this.FormNot.controls.Notificacion.value ? 1 : 0,
+                this.FormNot.controls.Titulo.value,
+                this.FormNot.controls.Mensaje.value,
+                this.FormNot.controls.activo.value ? 1 : 0,
+                this.FormNot.controls.Personalizado.value ? 1 : 0
+                );
+    this.service.AgregarCampania(camp).subscribe(
+      response => 
+        {
+          console.log(response);
+          if(Number.parseInt(response['estatus_r']) > 0)
+            {
+              swal.fire('¡Súper!',response['respuesta'] , 'success');
+              this.showusuarionotificaciones = true;
+            }
+          else  
+            {
+              swal.fire('¡Ops!',response['respuesta'] , 'error');
+            }
+        }
+      ,error =>
+        {
+          console.log(error);
+          
+        }
+    );
+  }
+  ObtenerTablaClientes(){
+    
+  }
+  ObtnerUltimoRegistro(){
 
+    this.service.ObtenerUltimoRegistro().subscribe(
+      response =>
+        {
+          console.log(response);
+          
+          this.FormNot.controls.Cve_campana.setValue(response['respuesta']);
+        }
+      ,error =>
+        {
+
+        }
+    );
+  }
+  AgregarCliente(Cve_campana,cve_cliente){
+    this.service.AClienteACampania(Cve_campana,cve_cliente).subscribe(
+      response =>
+        {
+          console.log(response);
+
+        }
+      , error =>
+        {
+          console.log(error);
+
+        }
+    );
+  }
   /**
    * TERMINA
    * Se encarga de mostrar todos los clientes

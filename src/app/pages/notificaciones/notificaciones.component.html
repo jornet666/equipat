@@ -21,29 +21,29 @@
                     <thead>
                         <tr>
                             <th scope="col">CAMPAÑA</th>
-                            <th scope="col">HORA</th>
+                            <!-- <th scope="col">HORA</th> -->
                             <th scope="col">FECHA DE NOTIFICACION</th>
                             <th scope="col">QUIEN LO HIZO</th>
                             <th scope="col">QUITAR</th>
                             <th scope="col">ESTATUS</th>
-                            <th scope="col">ACTIVAR</th>
+                            <!-- <th scope="col">ACTIVAR</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of collectionfechas.data | paginate: configfechas">
+                        <tr *ngFor="let item of listNot | paginate: configfechas">
                             <td>{{item.nombrecampania}} </td>
-                            <td>{{item.horacampania}} </td>
+                            <!-- <td>{{item.horacampania}} </td> -->
                             <td>{{item.fechacampania}} </td>
                             <td>{{item.quienlohizo}} </td>
                             <td> <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                               <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
                           </svg></td>
-                            <td>{{item.estatus}} </td>
-                            <td>
+                            <td>{{item.estatus == 'True'? 'Activo': 'Inactivo'}} </td>
+                            <!-- <td>
                                 <div class="checkbox">
                                     <label><input type="checkbox" value=""></label>
                                 </div>
-                            </td>
+                            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -73,6 +73,63 @@
             </div>
         </div>
         <br>
+     
+        <br>
+        <div class="card" *ngIf="showcampania">
+            <div class="card-body col-fond-uno">
+                <h5 class="card-title">Mensaje</h5>
+
+            </div>
+            <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
+                <div class="form-group">
+                    <label for="Cve_campana">NUMERO DE LA CAMÁÑA</label>
+                    <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
+                </div>
+                <div class="form-group">
+                    <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
+                    <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
+                </div>
+
+                <!-- <div class="form-group">
+                    <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
+                </div> -->
+
+                <!-- <div class="form-group">
+                    <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
+                </div> -->
+
+                <div class="form-group">
+                    <label for="Sms">ENVIO DE SMS</label>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value=""  id="Sms" name="Sms" formControlName='Sms'   ></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Notificacion">ENVIO DE NOTIFICACIONE</label>
+                    <div class="checkbox">
+                        <label><input type="checkbox" value=""  id="Notificacion" name="Notificacion" formControlName='Notificacion'></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="Titulo">Titulo</label>
+                    <input type="text" class="form-control" id="Titulo" placeholder="Titulo del mensaje" maxlength="20" name="Titulo" formControlName='Titulo' required>
+                </div>
+                <div class="form-group">
+                    <label for="Mensaje">Mensaje</label>
+                    <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-center ">
+                        <button type="submit " class="btn verde" >Enviar notificaciones</button>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
         <div class="card" *ngIf="showusuarionotificaciones">
             <div class="card-body col-fond-uno">
                 <h5 class="card-title">Usuarios para enviar notificaciones</h5>
@@ -196,7 +253,7 @@
                     <tbody>
                         <tr *ngFor="let item of collection.data | paginate: config">
                             <div class="checkbox">
-                                <label><input type="checkbox" value=""></label>
+                                <label><input type="checkbox" value="item.cveregistro" [checked]="item.existe" (click)="AgregarCliente(campanaAct,item.cveusuario)" ></label>
                             </div>
                             <td><svg class="bi bi-info-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" style="color: #4F6F19;"/>
@@ -230,64 +287,6 @@
                 </pagination-template>
 
             </div>
-        </div>
-        <br>
-        <div class="card" *ngIf="showcampania">
-            <div class="card-body col-fond-uno">
-                <h5 class="card-title">Mensaje</h5>
-
-            </div>
-            <form>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">NOMBRE DE LA CAMPAÑA</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Nombre de la campaña " maxlength="20">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">NUMERO DE LA CAMÁÑA</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="ID campaña" maxlength="20">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">ENVIO DE SMS</label>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""></label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">ENVIO DE NOTIFICACIONE</label>
-
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Titulo</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Titulo del mensaje " maxlength="20">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Mensaje</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Ingresa el mensaje a enviar"></textarea>
-                </div>
-                <div class="form-group">
-                    <div class="d-flex justify-content-center ">
-                        <button type="button " class="btn verde">Enviar notificaciones</button>
-                    </div>
-                </div>
-
-
-            </form>
         </div>
     </div>
 </div>

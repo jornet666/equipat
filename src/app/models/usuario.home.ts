@@ -7,6 +7,7 @@ export class UsuarioModel {
     cveusuario: string;
     nombre: string;
     sucursal: string;
+    existe: boolean;
 }
 
 export class CampaniasModel {

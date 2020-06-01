@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ComponentPortal, Portal, TemplatePortal} from '@angular/cdk/portal';
-import {MenuService} from '../servicios/menus.service';
+import {MenuService} from '../../services/menus.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Menu} from '../models/menu.models';
+import {Menu} from '../../models/menu.models';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { error } from 'protractor';

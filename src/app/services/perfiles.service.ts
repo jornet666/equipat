@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { Usuario } from '../models/usuario.models';
+import {Perfil} from '../models/perfil.models';
 
 @Injectable()
-export class UsuarioService {
+export class PerfilService {
     public urlBase: string;
     public url: string;
     respuesta: any;
@@ -15,33 +15,36 @@ export class UsuarioService {
                 }
 
     ObenerUltimoIndice() {
-        this.url = this.urlBase + 'UltimoRegistroU';
+        this.url = this.urlBase + 'UltimoRegistroP';
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, '', httpOptions);
 
     }
-    AgregarUsuario(Usuario: Usuario) {
-        this.url = this.urlBase + 'RegistroUsuario';
-        const body = JSON.stringify(Usuario);
+    AgregarPerfil(perfil: Perfil) {
+        this.url = this.urlBase + 'RegistroPerfil';
+        const body = JSON.stringify(perfil);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
-    EditarUsuario(Usuario: Usuario) {
-        this.url = this.urlBase + 'RegistroUsuarioUpdate';
+    EditarPerfil(perfil: Perfil) {
+        this.url = this.urlBase + 'RegistroPerfilUpdate';
         console.log(this.url);
-        const body = JSON.stringify(Usuario);
+        const body = JSON.stringify(perfil);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         this._httpClient.post(this.url, body, httpOptions).subscribe(
@@ -54,7 +57,7 @@ export class UsuarioService {
         return this.respuesta;
     }
     ObtenerListaTabla(pagina, longitud, criterios = '') {
-        this.url = this.urlBase + 'ListadoUsuarios';
+        this.url = this.urlBase + 'ListadoPerfil';
         const body = {
                 paginacion: pagina,
                 longitudPagina: longitud,
@@ -62,20 +65,32 @@ export class UsuarioService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
     }
-    ObtenerDetallUsuario(cve_UsuarioC) {
-        this.url = this.urlBase + 'UsuarioDetalle';
-        const body = JSON.stringify({cve_Usuario: cve_UsuarioC});
+    ObtenerDetallPerfil(cve_perfilC) {
+        this.url = this.urlBase + 'RegistroPerfilDetalle';
+        const body = JSON.stringify({cve_perfil: cve_perfilC});
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
-   
+    ObtenerListaSelect(){
+        this.url = this.urlBase + 'ListadoPerfilSelect';
+        const body = '';
+        const httpOptions = {
+                    headers: new HttpHeaders({
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    })
+                    };
+        return this._httpClient.post(this.url, body, httpOptions);
+    }
 }

@@ -46,8 +46,9 @@
                                 </thead>
                                 <tbody >
                                     <tr *ngFor="let r of listTUsuario">
-                                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_perfil,r.nombre, r.activo)"></i></td>
-                                    <td>{{r.cve_perfil}}</td>
+                                    <td><i class="nav-icon fas fa-pencil-alt" (click)="AbrirEditar(r.cve_usuario)"></i></td>
+                                    <td>{{r.cve_usuario}}</td>
+                                    <td>{{r.usuario}}</td>
                                     <td>{{r.nombre}}</td>
                                     <td>{{r.activo?'Activo':'Inactivo'}}</td>
                                     </tr>
@@ -92,17 +93,17 @@
                                     </div>
                                     <div class="row form-group col-md-8">
                                         <label for="cve_perfil">Perfil </label>
-                                        <select class="form-control" name="cve_perfil" formControlName='cve_perfil'>
+                                        <select class="form-control" name="cve_perfil" formControlName='cve_perfil'  >
                                             <option value="0">ELIGE EL USUARIO</option>
-                                            <option *ngFor="let o of listaUsuarioSelect" [value] = "o.cve_usuario" >{{o.nombre}}</option>
+                                            <option *ngFor="let o of listaPerfiloSelect" [ngValue] = "o.cve_usuario" [selected]="o.cve_perfil === P.cve_perfil.value" >{{o.nombre}}</option>
                                         </select>
                                         <span *ngIf ="P.cve_perfil && !P.cve_perfil.valid">*</span> 
                                     </div>
                                     <div class="row form-group col-md-8">
                                         <label for="cuentabloqueada">Cuenta Bloqueada </label>
-                                        <select class="form-control" name="cuentabloqueada" formControlName='cuentabloqueada'>
-                                            <option value="1">SI</option>
-                                            <option value="0">NO</option>
+                                        <select class="form-control" name="cuentabloqueada" formControlName='cuentabloqueada' >
+                                            <option value="1" [selected]="P.cuentabloqueada.value ">SI</option>
+                                            <option value="0" [selected]="P.cuentabloqueada.value ">NO</option>
                                         </select>
                                         <span *ngIf ="P.cve_perfil && !P.cve_perfil.valid">*</span> 
                                     </div>
