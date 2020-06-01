@@ -30,6 +30,7 @@
                         ],
                         "scripts": [
                             "node_modules/jquery/dist/jquery.min.js",
+<<<<<<< HEAD
                             "node_modules/bootstrap/dist/js/bootstrap.min.js",
                             "src/assets/plugins/appJS/perfil.js",
                             "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
@@ -38,6 +39,9 @@
                             "src/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js",
                             "src/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"
 
+=======
+                            "node_modules/bootstrap/dist/js/bootstrap.min.js"
+>>>>>>> 90b8b7468b067f223604d901320353de33947d21
                         ]
                     },
                     "configurations": {
@@ -102,9 +106,13 @@
                             "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
                             "src/styles.css"
                         ],
+<<<<<<< HEAD
                         "scripts": [
 
                         ]
+=======
+                        "scripts": []
+>>>>>>> 90b8b7468b067f223604d901320353de33947d21
                     }
                 },
                 "lint": {

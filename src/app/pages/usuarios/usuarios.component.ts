@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UsuarioService} from '../servicios/usuarios.service';
-import {SeguridadService} from '../servicios/seguridad.service';
-import {PerfilService} from '../servicios/perfiles.service';
-import {Usuario} from '../models/usuario.models';
+import {UsuarioService} from '../../services/usuarios.service';
+import {SeguridadService} from '../../services/seguridad.service';
+import {PerfilService} from '../../services/perfiles.service';
+import {Usuario} from '../../models/usuario.models';
 import { error } from 'protractor';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -14,7 +15,7 @@ import { error } from 'protractor';
 })
 export class UsuariosComponent implements OnInit {
   listTUsuario: any;
-  listaUsuarioSelect: any;
+  listaPerfiloSelect: any;
   usuarioform: FormGroup;
   openform: boolean = false;
   accionBoton: string = '';
@@ -28,9 +29,10 @@ export class UsuariosComponent implements OnInit {
               private _perfilService: PerfilService
             ) { 
               this.usuarioform = this.formbuilder.group({
-                   cve_usuario:  0,
-                   password: '',
-                   cve_perfil:  0,
+                   cve_usuario:  [0, Validators.required],
+                   usuario: ['', Validators.required],
+                   password: ['', Validators.required],
+                   cve_perfil: [0, Validators.required],
                    cve_menu:  0,
                    num_empleado:  0,
                    cve_seguridad:  0,
@@ -40,10 +42,10 @@ export class UsuariosComponent implements OnInit {
                    periodocambiap:  0,
                    cambiap:  0,
                    veceslogin:  0,
-                   nombre: '',
+                   nombre: ['', Validators.required],
                    cve_sucursal:  0,
                    email: '',
-                   telefono:  0,
+                   telefono: 0,
                    email_copias: ''
               });
 
@@ -56,6 +58,7 @@ export class UsuariosComponent implements OnInit {
   OnSubmit() {
     let usuario = new Usuario(
         this.usuarioform.controls.cve_usuario.value,
+        this.usuarioform.controls.usuario.value,
         this.usuarioform.controls.password.value,
         this.usuarioform.controls.cve_perfil.value,
         0,
@@ -76,10 +79,17 @@ export class UsuariosComponent implements OnInit {
     if (this.accion === 'A') {
       this._usuarioService.AgregarUsuario(usuario).subscribe(
         response => {
-          console.log(response);
+          let estatus =Number.parseInt(response['estatus_r'],10);
+
+          if(estatus > 0 ){
+            swal.fire('¡Fabuloso!', response['respuesta'],'success');
+          }else{
+            swal.fire('¡Chale!', response['respuesta'], 'error');
+          }
           this.usuarioform.reset();
           this.ObtenerListaTable();
-
+          this.RegresaraTabla();
+          
         }
         , error => {
           console.log(error);
@@ -89,9 +99,18 @@ export class UsuariosComponent implements OnInit {
     } else if (this.accion === 'E') {
       this._usuarioService.EditarUsuario(usuario).subscribe(
         response => {
-          console.log(response);
+          
+          let estatus =Number.parseInt(response['estatus_r'],10);
+
+          if(estatus > 0 ){
+            swal.fire('¡Fabuloso!', response['respuesta'],'success');
+          }else{
+            swal.fire('¡Chale!', response['respuesta'], 'error');
+          }
           this.usuarioform.reset();
           this.ObtenerListaTable();
+          this.RegresaraTabla();
+
         }
         ,error => {
           console.log(error);
@@ -119,6 +138,7 @@ export class UsuariosComponent implements OnInit {
     this._usuarioService.ObenerUltimoIndice().subscribe(
       response => {
         this.usuarioform.controls.cve_usuario.setValue(response['respuesta']);
+        this.LlenarListaPerfiles();
       }
       , error => {
         console.log(error);
@@ -137,6 +157,7 @@ export class UsuariosComponent implements OnInit {
       response => {
 
         this.usuarioform.controls.cve_usuario.setValue(response['cve_usuario']);
+        this.usuarioform.controls.usuario.setValue(response['usuario']);
         this.usuarioform.controls.password.setValue(response['password']);
         this.usuarioform.controls.cve_perfil.setValue(response['cve_perfil']);
         this.usuarioform.controls.cuentabloqueada.setValue(response['cuentabloqueada']);
@@ -160,17 +181,18 @@ export class UsuariosComponent implements OnInit {
     this.existeUsuario = false;
   }
   get P() { return this.usuarioform.controls; }
+
   LlenarListaPerfiles(){
     this._perfilService.ObtenerListaSelect().subscribe(
       response => {
-        
-        
-         this.listaUsuarioSelect = response;
+         this.listaPerfiloSelect = response;
+         console.log(response);
+         
       }
       ,error => {
           console.log(error);
       }
-
     );
   }
+  
 }

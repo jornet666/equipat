@@ -19,7 +19,8 @@ export class PerfilService {
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, '', httpOptions);
@@ -30,7 +31,8 @@ export class PerfilService {
         const body = JSON.stringify(perfil);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
@@ -41,7 +43,8 @@ export class PerfilService {
         const body = JSON.stringify(perfil);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         this._httpClient.post(this.url, body, httpOptions).subscribe(
@@ -62,7 +65,8 @@ export class PerfilService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
@@ -72,17 +76,19 @@ export class PerfilService {
         const body = JSON.stringify({cve_perfil: cve_perfilC});
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
     ObtenerListaSelect(){
-        this.url = this.urlBase + 'ListadoPerfilsSelect';
+        this.url = this.urlBase + 'ListadoPerfilSelect';
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);

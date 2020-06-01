@@ -19,7 +19,8 @@ export class UsuarioService {
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, '', httpOptions);
@@ -30,28 +31,24 @@ export class UsuarioService {
         const body = JSON.stringify(Usuario);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
     EditarUsuario(Usuario: Usuario) {
-        this.url = this.urlBase + 'RegistroUsuarioUpdate';
+        this.url = this.urlBase + 'RegistroUpdate';
         console.log(this.url);
         const body = JSON.stringify(Usuario);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
-        this._httpClient.post(this.url, body, httpOptions).subscribe(
-        result => {
-        console.log(result);
-        },
-        error => {
-        console.log(error);
-        });
-        return this.respuesta;
+        return this._httpClient.post(this.url, body, httpOptions);
+         
     }
     ObtenerListaTabla(pagina, longitud, criterios = '') {
         this.url = this.urlBase + 'ListadoUsuarios';
@@ -62,7 +59,8 @@ export class UsuarioService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
@@ -72,7 +70,8 @@ export class UsuarioService {
         const body = JSON.stringify({cve_Usuario: cve_UsuarioC});
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);

@@ -25,7 +25,8 @@ export class MenuService {
                     };
         const httpOptions = {
                         headers: new HttpHeaders({
-                        'Content-Type':  'application/json'
+                        'Content-Type':  'application/json',
+                        Authorization: 'Bearer ' + sessionStorage.getItem('token')
                         })
                         };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
@@ -37,7 +38,8 @@ export class MenuService {
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, '', httpOptions);
@@ -48,7 +50,8 @@ export class MenuService {
         const body = JSON.stringify(menu);
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
@@ -61,7 +64,8 @@ export class MenuService {
         
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
@@ -75,7 +79,8 @@ export class MenuService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
@@ -86,7 +91,8 @@ export class MenuService {
         const body = '';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
@@ -97,7 +103,8 @@ export class MenuService {
         const body = JSON.stringify({cve_menu: cve_menuC});
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
@@ -107,13 +114,18 @@ export class MenuService {
     ObtenerTreeViewMenu(){
         this.menuTreeView = [];
         let ArrayS;
+        
+        const body = {
+            
+    };
         this.url = this.urlBase + 'ObtenerListaTreeM';
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
-        return this._httpClient.post(this.url, '', httpOptions);
+        return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
     
     }
     GetTreeView(): Menu_tree[]{
@@ -161,6 +173,23 @@ export class MenuService {
         });
     }
     }
+    ObtenerTreeViewMenuAsignados(){
+        this.menuTreeView = [];
+        let ArrayS;
+        
+        const body = {
+            
+    };
+        this.url = this.urlBase + 'ObtenerListaTreeM';
+        const httpOptions = {
+                    headers: new HttpHeaders({
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    })
+                    };
+        return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
+    
+    }
 }
 
 export class Menu_tree {
@@ -168,6 +197,7 @@ export class Menu_tree {
       public nombre: string;
       public icono: string;
       public pagina: string;
+      public existe: string;
       public children?: Menu_tree[];
 
 }

@@ -1,10 +1,10 @@
 import {NestedTreeControl} from '@angular/cdk/tree';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Perfil} from '../models/perfil.models';
-import {PerfilService} from '../servicios/perfiles.service';
-import {MenuService,Menu_tree } from '../servicios/menus.service';
-import {SeguridadService} from '../servicios/seguridad.service';
+import {Perfil} from '../../models/perfil.models';
+import {PerfilService} from '../../services/perfiles.service';
+import {MenuService,Menu_tree } from '../../services/menus.service';
+import {SeguridadService} from '../../services/seguridad.service';
 import {Observable} from 'rxjs';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
 
@@ -144,7 +144,7 @@ export class PerfilesComponent implements OnInit {
   ObtenerMenuTree() {
   let ArrayS;
   this.dataSource.data = null;
-  this._menuService.ObtenerTreeViewMenu().subscribe(
+  this._menuService.ObtenerTreeViewMenuAsignados().subscribe(
     response => {
 
         ArrayS = response; 
@@ -154,6 +154,7 @@ export class PerfilesComponent implements OnInit {
                                 nombre: element['nombre'],
                                 pagina: element['pagina'],
                                 icono: element['imagen'],
+                                existe: element['existe'],
                                 children:  []
                             }
 
