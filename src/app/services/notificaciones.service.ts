@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import {Campania} from '../models/campania.model';
 import { LoginComponent } from '../pages/login/login.component';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class NotificacionesService {
   public url: string;
 
   constructor(private http: HttpClient) {
-    this.urlBase = '/api/site/';
+    this.urlBase = environment.url + '/api/site/';
    }
 
    /**
@@ -56,7 +57,7 @@ export class NotificacionesService {
    */
 
   cargaFiltradoSeleccion() {
-    
+
     const body = {
     };
     const httpOptions = {
@@ -106,8 +107,8 @@ export class NotificacionesService {
   }
   AClienteACampania(cve_camp,cve_clien){
     this.url = this.urlBase + 'AgregarClienteNot';
-    
-    
+
+
     const body = {
               Cve_campana: cve_camp,
               Cve_cliente: cve_clien

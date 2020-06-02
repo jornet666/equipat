@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, bindCallback} from 'rxjs';
 import {Router} from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class SeguridadService {
@@ -10,7 +11,7 @@ export class SeguridadService {
     constructor(public _httpClient: HttpClient, private router: Router)
         {
             //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
-            this.urlBase = '/api/site/';
+            this.urlBase = environment.url +  '/api/site/';
         }
     AgregarMenuaPerfil(cve_perfilM, cve_menuM){
         this.url = this.urlBase + 'AgregaAccesoMenuPerfil';
@@ -42,7 +43,7 @@ export class SeguridadService {
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
     }
     ValidarToken(){
-        
+
         this.url = this.urlBase + 'ValidarToken';
         const body = {};
         const httpOptions = {
@@ -53,7 +54,7 @@ export class SeguridadService {
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions).subscribe(
             response => {
-                
+
             },
             error => {
                 console.log(error);

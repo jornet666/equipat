@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { Usuario } from '../models/usuario.models';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class UsuarioService {
@@ -11,7 +12,7 @@ export class UsuarioService {
     constructor(public _httpClient: HttpClient
                 )
                 {
-                    this.urlBase = '/api/site/';
+                    this.urlBase = environment.url +   '/api/site/';
                 }
 
     ObenerUltimoIndice() {
@@ -48,7 +49,7 @@ export class UsuarioService {
                     })
                     };
         return this._httpClient.post(this.url, body, httpOptions);
-         
+
     }
     ObtenerListaTabla(pagina, longitud, criterios = '') {
         this.url = this.urlBase + 'ListadoUsuarios';
@@ -76,5 +77,5 @@ export class UsuarioService {
                     };
         return this._httpClient.post(this.url, body, httpOptions);
     }
-   
+
 }
