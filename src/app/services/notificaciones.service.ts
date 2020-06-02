@@ -14,6 +14,8 @@ export class NotificacionesService {
   public url: string;
 
   constructor(private http: HttpClient) {
+    console.log('constructor del provider notificaceiones');
+
     this.urlBase = environment.url + '/api/site/';
    }
 

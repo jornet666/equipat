@@ -1,4 +1,3 @@
-<ngx-spinner></ngx-spinner>
 <div class="container">
     <div style="background:transparent !important" class="jumbotron">
         <div class="card" *ngIf="listadetalle">
@@ -73,7 +72,7 @@
             </div>
         </div>
         <br>
-     
+
         <br>
         <div class="card" *ngIf="showcampania">
             <div class="card-body col-fond-uno">
@@ -83,11 +82,11 @@
             <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
                 <div class="form-group">
                     <label for="Cve_campana">NUMERO DE LA CAMÁÑA</label>
-                    <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
+                    <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana' disabled required>
                 </div>
                 <div class="form-group">
                     <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
-                    <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
+                    <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana' required>
                 </div>
 
                 <!-- <div class="form-group">
@@ -119,11 +118,11 @@
                 </div>
                 <div class="form-group">
                     <label for="Mensaje">Mensaje</label>
-                    <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
+                    <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar" name="Mensaje" formControlName='Mensaje'></textarea>
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-center ">
-                        <button type="submit " class="btn verde" >Enviar notificaciones</button>
+                        <button type="submit " class="btn verde">Enviar notificaciones</button>
                     </div>
                 </div>
 
