@@ -8,13 +8,12 @@ import {MenuService, Menu_tree } from '../../services/menus.service';
 import {SeguridadService} from '../../services/seguridad.service';
 import {Observable} from 'rxjs';
 import {MatTreeNestedDataSource} from '@angular/material/tree';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
 
 @Component({
-  selector: 'app-home', 
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css',
   '../../../assets/plugins/fontawesome-free/css/all.min.css',
@@ -40,8 +39,7 @@ export class HomeComponent implements OnInit {
   constructor(changeDetectorRef: ChangeDetectorRef,
               media: MediaMatcher,
               private _menuService: MenuService,
-              private _seguridadService: SeguridadService,
-              private spinner: NgxSpinnerService
+              private _seguridadService: SeguridadService
   ){
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -56,7 +54,7 @@ export class HomeComponent implements OnInit {
   menuItems: any[];
 
   ngOnInit() {
-   
+
     this._seguridadService.ValidarToken();
     this.nombre_usuario = sessionStorage.getItem('nombre_usuario');
     this.nombre_Perfil = sessionStorage.getItem('nombre_perfil_nav');
@@ -72,7 +70,7 @@ ObtenerLista() {
 
 }
 ObtenerMenuTree() {
-  this.spinner.show();
+
   let cve_perfil = sessionStorage.getItem('cve_perfil_nav');
   let ArrayS;
   this.dataSource.data = null;
@@ -98,7 +96,6 @@ ObtenerMenuTree() {
        this.dataSource.data = this._menuService.GetTreeView();
     },error => {
         console.log(error);
-        this.spinner.hide();
     }
 );
 
