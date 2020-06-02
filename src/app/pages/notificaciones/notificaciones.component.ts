@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../services/notificaciones.service';
 import { Usuario } from '../../models/usuario.models';
 import { CampaniasModel } from 'src/app/models/usuario.home';
@@ -29,17 +28,17 @@ export class NotificacionesComponent implements OnInit {
   contadorclientes = 0;
   contadorNotificaciones = 0;
   listNot = [];
-  configfechas = { 
+  configfechas = {
           id: 'custom',
           itemsPerPage: 10,
           currentPage: 1,
           totalItems: 0
         }
   campanaAct: number;
-  /**Variables correspondientes al formulario de notificaciones */
+  /** Variables correspondientes al formulario de notificaciones */
   FormNot: FormGroup;
 
-  /**Termina Variables de Notificaciones */
+  /** Termina Variables de Notificaciones */
   /** OCULTAR O MOSTRAR */
   public listadetalle = true;
   public showdetale = true;
@@ -77,7 +76,7 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService, private formbuilder: FormBuilder,) {
+  constructor(private service: NotificacionesService, private formbuilder: FormBuilder,) {
     this.FormNot = this.formbuilder.group({
                   Cve_campana: 0,
                   Nombre_campana: '',
@@ -115,7 +114,6 @@ export class NotificacionesComponent implements OnInit {
     // /**
     //  * CARGA TODOS LOS FILTROS
     //  */
-    this.spinner.show();
     this.service.cargaFiltros().subscribe( resp => {
       // tslint:disable-next-line: no-string-literal
       this.dropdownListSucursal = resp['listasucursal'];
@@ -143,14 +141,12 @@ export class NotificacionesComponent implements OnInit {
         itemsShowLimit: 3,
         allowSearchFilter: true
       };
-    
+
     },
     error => {
-      this.spinner.hide();
       console.log(error);
     });
   this.CargarTablaNotificaciones();
-  this.spinner.hide();
   }
 
   /**
@@ -211,7 +207,7 @@ export class NotificacionesComponent implements OnInit {
   /** Agregar campanias */
   agregarcampania() {
     this.listadetalle = false;
-    
+
     this.showcampania = true;
     this.ObtnerUltimoRegistro();
   }
@@ -252,12 +248,11 @@ export class NotificacionesComponent implements OnInit {
    * Se encarga de mostrar todos los clientes
    */
   cargaregistrospush() {
-    this.spinner.show();
     this.campanaAct = this.FormNot.controls.Cve_campana.value;
 
     this.service.CargaTablaClientes(this.campanaAct).subscribe( resp => {
       console.log(resp);
-        
+
       // tslint:disable-next-line: forin
       for (const item in resp) {
         this.contadorclientes++;
@@ -268,7 +263,6 @@ export class NotificacionesComponent implements OnInit {
         data.existe = Number.parseInt(resp[item].Existe, 10) === 1 ? true : false;
         this.collection.data.push(data);
       }
-      this.spinner.hide();
     });
   }
   CargarTablaNotificaciones(){
@@ -291,9 +285,8 @@ export class NotificacionesComponent implements OnInit {
                   currentPage: 1,
                   totalItems: response[0].totalRegistros
           }
-          this.spinner.hide();
         },
-      error => 
+      error =>
         {
           console.log(error);
         }
@@ -314,7 +307,7 @@ export class NotificacionesComponent implements OnInit {
                 this.FormNot.controls.Personalizado.value ? 1 : 0
                 );
     this.service.AgregarCampania(camp).subscribe(
-      response => 
+      response =>
         {
           console.log(response);
           if(Number.parseInt(response['estatus_r']) > 0)
@@ -322,7 +315,7 @@ export class NotificacionesComponent implements OnInit {
               swal.fire('¡Súper!',response['respuesta'] , 'success');
               this.showusuarionotificaciones = true;
             }
-          else  
+          else
             {
               swal.fire('¡Ops!',response['respuesta'] , 'error');
             }
@@ -330,12 +323,12 @@ export class NotificacionesComponent implements OnInit {
       ,error =>
         {
           console.log(error);
-          
+
         }
     );
   }
   ObtenerTablaClientes(){
-    
+
   }
   ObtnerUltimoRegistro(){
 
@@ -343,7 +336,7 @@ export class NotificacionesComponent implements OnInit {
       response =>
         {
           console.log(response);
-          
+
           this.FormNot.controls.Cve_campana.setValue(response['respuesta']);
         }
       ,error =>

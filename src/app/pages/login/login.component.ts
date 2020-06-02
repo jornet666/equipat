@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
   usuario: string;
   usuarioNav: UsuarioNav;
-  constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) { 
-   
+  constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) {
+
 
   }
   usuarioValido: boolean;
@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
     this.submitted = true;
 
     if(this.registerForm.invalid) {
@@ -43,14 +43,14 @@ export class LoginComponent implements OnInit {
 
       this._loginService.ValidarUsuario(this.registerForm.controls.usuario.value, this.registerForm.controls.password.value).subscribe(
         response => {
-          
+
           this.usuarioNav.cve_usuario = Number.parseInt(response['cve_usuario'], 10);
           this.usuarioNav.cve_perfil = Number.parseInt(response['cve_perfil'], 10);
           this.usuarioNav.nombre_perfil = response['nombre_perfil'];
           this.usuarioNav.nombre_usuario = response['nombre_usuario'];
           this.usuarioNav.token = response['token'];
-         
-          
+
+
           if (this.usuarioNav.cve_usuario > 0 )
           {
             sessionStorage.setItem('cve_usuario_nav', this.usuarioNav.cve_usuario.toString());
@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       );
 
 
-    
+
     }
   }
 
