@@ -5,6 +5,7 @@ import {Menu} from '../models/menu.models';
 import { ListRange } from '@angular/cdk/collections';
 import { error } from 'protractor';
 import { runInThisContext } from 'vm';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class MenuService {
@@ -15,7 +16,7 @@ export class MenuService {
     nivelesSubmenu = 5;
     constructor(public _httpClient: HttpClient)
                 {
-                this.urlBase = '/api/site/';
+                  this.urlBase = environment.url + '/api/site/';
                 }
 
     ObtenerMenuPerfil(cve_perfil) {
@@ -30,7 +31,7 @@ export class MenuService {
                         })
                         };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
-        
+
     }
 
     ObenerUltimoIndice() {
@@ -43,7 +44,7 @@ export class MenuService {
                     })
                     };
         return this._httpClient.post(this.url, '', httpOptions);
-       
+
     }
     AgregarMenu(menu: Menu) {
         this.url = this.urlBase + 'RegistroMenu';
@@ -58,10 +59,10 @@ export class MenuService {
     }
     EditarrMenu(menu: Menu) {
         this.url = this.urlBase + 'RegistroMenuUpdate';
-        
+
         const body = JSON.stringify(menu);
         console.log(body);
-        
+
         const httpOptions = {
                     headers: new HttpHeaders({
                     'Content-Type':  'application/json',
@@ -114,9 +115,9 @@ export class MenuService {
     ObtenerTreeViewMenu(){
         this.menuTreeView = [];
         let ArrayS;
-        
+
         const body = {
-            
+
     };
         this.url = this.urlBase + 'ObtenerListaTreeM';
         const httpOptions = {
@@ -126,7 +127,7 @@ export class MenuService {
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
-    
+
     }
     GetTreeView(): Menu_tree[]{
         return this.menuTreeView;
@@ -176,9 +177,9 @@ export class MenuService {
     ObtenerTreeViewMenuAsignados(){
         this.menuTreeView = [];
         let ArrayS;
-        
+
         const body = {
-            
+
     };
         this.url = this.urlBase + 'ObtenerListaTreeM';
         const httpOptions = {
@@ -188,7 +189,7 @@ export class MenuService {
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
-    
+
     }
 }
 
@@ -202,4 +203,3 @@ export class Menu_tree {
 
 }
 
-    

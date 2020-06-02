@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, bindCallback} from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoginService {
@@ -8,7 +9,7 @@ export class LoginService {
     public token: string;
     constructor(public _httpClient: HttpClient){
         //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
-        this.url = '/api/login/siteLogin';
+        this.url = environment.url + '/api/login/siteLogin';
     }
 
     ValidarUsuario(usuarioV: string, passwordV: string) {
@@ -16,12 +17,12 @@ export class LoginService {
         const body = {  usuario: usuarioV,
                         password: passwordV
                     };
-     
+
         const header = new HttpHeaders().set('Content-Type', 'application/json');
 
         const httpOptions = {headers: new HttpHeaders().set('Content-Type', 'application/json')};
         return this._httpClient.post(this.url, body, {headers: header});
        // return usuarioValido;
     }
-   
+
 }
