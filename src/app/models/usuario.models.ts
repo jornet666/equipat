@@ -1,6 +1,7 @@
 export class Usuario {
     constructor(
         public cve_usuario: number,
+        public usuario: string,
         public password: string,
         public cve_perfil: number,
         public cve_menu: number,
@@ -17,5 +18,15 @@ export class Usuario {
         public email: string,
         public telefono: number,
         public email_copias: string
+    ){}
+}
+
+export class UsuarioNav{
+    constructor(
+        public cve_usuario: number,
+        public cve_perfil: number,
+        public nombre_perfil: string,
+        public nombre_usuario: string,
+        public token: string
     ){}
 }

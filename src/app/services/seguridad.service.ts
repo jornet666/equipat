@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, bindCallback} from 'rxjs';
-
+import {Router} from '@angular/router';
 
 @Injectable()
 export class SeguridadService {
     public url: string;
     urlBase: string;
-    constructor(public _httpClient: HttpClient)
+    constructor(public _httpClient: HttpClient, private router: Router)
         {
             //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
             this.urlBase = '/api/site/';
@@ -20,7 +20,8 @@ export class SeguridadService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
@@ -34,9 +35,31 @@ export class SeguridadService {
         };
         const httpOptions = {
                     headers: new HttpHeaders({
-                    'Content-Type':  'application/json'
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
                     })
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions);
     }
+    ValidarToken(){
+        
+        this.url = this.urlBase + 'ValidarToken';
+        const body = {};
+        const httpOptions = {
+                    headers: new HttpHeaders({
+                    'Content-Type':  'application/json',
+                    Authorization: 'Bearer ' + sessionStorage.getItem('token')
+                    })
+                    };
+        return this._httpClient.post(this.url, JSON.stringify(body), httpOptions).subscribe(
+            response => {
+                
+            },
+            error => {
+                console.log(error);
+                this.router.navigate(['/login']);
+            }
+        );
+    }
+
 }
