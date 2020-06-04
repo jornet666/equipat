@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Perfil} from '../models/perfil.models';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class PerfilService {
@@ -11,7 +12,7 @@ export class PerfilService {
     constructor(public _httpClient: HttpClient
                 )
                 {
-                    this.urlBase = '/api/site/';
+                    this.urlBase = environment.url + '/api/site/';
                 }
 
     ObenerUltimoIndice() {

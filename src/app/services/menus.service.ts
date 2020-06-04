@@ -5,6 +5,7 @@ import {Menu} from '../models/menu.models';
 import { ListRange } from '@angular/cdk/collections';
 import { error } from 'protractor';
 import { runInThisContext } from 'vm';
+import { environment } from 'src/environments/environment.prod';
 
 @Injectable()
 export class MenuService {
@@ -15,7 +16,8 @@ export class MenuService {
     nivelesSubmenu = 5;
     constructor(public _httpClient: HttpClient)
                 {
-                this.urlBase = '/api/site/';
+                    console.log("menu service");
+                this.urlBase = environment.url + '/api/site/';
                 }
 
     ObtenerMenuPerfil(cve_perfil) {
@@ -176,10 +178,11 @@ export class MenuService {
     ObtenerTreeViewMenuAsignados(){
         this.menuTreeView = [];
         let ArrayS;
-        
         const body = {
             
-    };
+            };
+            console.log("entra tree");
+            
         this.url = this.urlBase + 'ObtenerListaTreeM';
         const httpOptions = {
                     headers: new HttpHeaders({

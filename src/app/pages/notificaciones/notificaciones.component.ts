@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
-import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificacionesService } from '../../services/notificaciones.service';
 import { Usuario } from '../../models/usuario.models';
 import { CampaniasModel } from 'src/app/models/usuario.home';
@@ -13,7 +12,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Component({
   selector: 'app-notificaciones',
   templateUrl: './notificaciones.component.html',
-  styleUrls: ['./notificaciones.component.css']
+  styleUrls: ['./notificaciones.component.css'],
+  providers: [NotificacionesService]
 })
 export class NotificacionesComponent implements OnInit {
 
@@ -77,7 +77,7 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private spinner: NgxSpinnerService, private service: NotificacionesService, private formbuilder: FormBuilder,) {
+  constructor(private service: NotificacionesService, private formbuilder: FormBuilder,) {
     this.FormNot = this.formbuilder.group({
                   Cve_campana: 0,
                   Nombre_campana: '',
@@ -115,7 +115,7 @@ export class NotificacionesComponent implements OnInit {
     // /**
     //  * CARGA TODOS LOS FILTROS
     //  */
-    this.spinner.show();
+    
     this.service.cargaFiltros().subscribe( resp => {
       // tslint:disable-next-line: no-string-literal
       this.dropdownListSucursal = resp['listasucursal'];
@@ -146,11 +146,11 @@ export class NotificacionesComponent implements OnInit {
     
     },
     error => {
-      this.spinner.hide();
+      
       console.log(error);
     });
   this.CargarTablaNotificaciones();
-  this.spinner.hide();
+  
   }
 
   /**
@@ -252,7 +252,7 @@ export class NotificacionesComponent implements OnInit {
    * Se encarga de mostrar todos los clientes
    */
   cargaregistrospush() {
-    this.spinner.show();
+    
     this.campanaAct = this.FormNot.controls.Cve_campana.value;
 
     this.service.CargaTablaClientes(this.campanaAct).subscribe( resp => {
@@ -268,7 +268,7 @@ export class NotificacionesComponent implements OnInit {
         data.existe = Number.parseInt(resp[item].Existe, 10) === 1 ? true : false;
         this.collection.data.push(data);
       }
-      this.spinner.hide();
+      
     });
   }
   CargarTablaNotificaciones(){
@@ -291,7 +291,7 @@ export class NotificacionesComponent implements OnInit {
                   currentPage: 1,
                   totalItems: response[0].totalRegistros
           }
-          this.spinner.hide();
+          
         },
       error => 
         {

@@ -55,6 +55,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 import { NgxSpinnerModule } from "ngx-spinner";
+import { TestingComponent } from './pages/testing/testing.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -74,7 +75,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AgregarMenuComponent,
     EditarMenuComponent,
     FooterComponent,
-    NotificacionesComponent
+    NotificacionesComponent,
+    TestingComponent
   ],
   imports: [
     BrowserModule,

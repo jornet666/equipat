@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.registerForm.controls; }
 
-  onSubmit(form: NgForm){
+  onSubmit(){
+    
     this.submitted = true;
 
     if(this.registerForm.invalid) {
@@ -49,24 +50,25 @@ export class LoginComponent implements OnInit {
           this.usuarioNav.nombre_perfil = response['nombre_perfil'];
           this.usuarioNav.nombre_usuario = response['nombre_usuario'];
           this.usuarioNav.token = response['token'];
-         
+       
           
           if (this.usuarioNav.cve_usuario > 0 )
           {
+            debugger;
             sessionStorage.setItem('cve_usuario_nav', this.usuarioNav.cve_usuario.toString());
             sessionStorage.setItem('cve_perfil_nav', this.usuarioNav.cve_perfil.toString());
             sessionStorage.setItem('nombre_perfil_nav', this.usuarioNav.nombre_perfil);
             sessionStorage.setItem('nombre_usuario', this.usuarioNav.nombre_usuario);
             sessionStorage.setItem('token', this.usuarioNav.token);
-
-            this.router.navigate(['/home']);
+            console.log(sessionStorage.getItem('nombre_usuario'),sessionStorage.getItem('nombre_perfil_nav'));
+            debugger;
+            this.router.navigate(['/test']);
           } else {
-           swal.fire('Advertencia', 'Usuario o contraseña incorrecto', 'warning')
+           swal.fire('Advertencia', 'Usuario o contraseña incorrecto', 'warning');
           }
         },
         error => {
-
-          console.log(error);
+          console.log('Error en login' + error);
         }
       );
 

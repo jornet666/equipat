@@ -13,7 +13,7 @@ export class NotificacionesService {
   public url: string;
 
   constructor(private http: HttpClient) {
-    this.urlBase = '/api/site/';
+    this.urlBase = environment.url + '/api/site/';
    }
 
    /**
@@ -65,7 +65,7 @@ export class NotificacionesService {
         Authorization: 'Bearer ' + sessionStorage.getItem('token')
       })
     };
-    return this.http.post(environment.url + 'loginuser', body, httpOptions);
+    return this.http.post(this.urlBase + 'loginuser', body, httpOptions);
   }
   CargaTablanot(pagina = 1, longitud = 10, crit = '') {
     this.url = this.urlBase + 'ObtenertblNot';

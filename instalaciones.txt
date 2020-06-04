@@ -3,3 +3,4 @@ npm install bootstrap-icons
 npm install ng-multiselect-dropdown
 npm install ngx-spinner --save
 npm install jquery --save
+,"proxyConfig": "src/proxy.conf.json"

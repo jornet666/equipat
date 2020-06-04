@@ -14,18 +14,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
-  selector: 'app-home', 
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css',
   '../../../assets/plugins/fontawesome-free/css/all.min.css',
   '../../../assets/plugins/dist/css/adminlte.min.css'],
-  animations: [
-    trigger('slide', [
-      state('up', style({ height: 0 })),
-      state('down', style({ height: '*' })),
-      transition('up <=> down', animate(200))
-    ])
-  ],
   providers: [MenuService, SeguridadService]
 })
 export class HomeComponent implements OnInit {
@@ -37,42 +30,29 @@ export class HomeComponent implements OnInit {
   nombre_Perfil: string;
   nombre_usuario: string;
 
-  constructor(changeDetectorRef: ChangeDetectorRef,
-              media: MediaMatcher,
+  //Variables
+  menuItems: any[];
+  constructor(
               private _menuService: MenuService,
-              private _seguridadService: SeguridadService,
-              private spinner: NgxSpinnerService
+              private _seguridadService: SeguridadService
   ){
-    this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
-    // this.listaModulos =
+    console.log("constructor");
   }
 
-  //Variables
-  private _mobileQueryListener: () => void;
-  mobileQuery: MediaQueryList;
-  listaAcceso: Routes ;
-  menuItems: any[];
-
   ngOnInit() {
-   
+    console.log("Inicia home");
+    debugger;
     this._seguridadService.ValidarToken();
+    console.log("Inicia validar token");
     this.nombre_usuario = sessionStorage.getItem('nombre_usuario');
     this.nombre_Perfil = sessionStorage.getItem('nombre_perfil_nav');
-    this.ObtenerLista();
     this.ObtenerMenuTree();
-
   }
   ngAfterViewInit() {
   }
 
-ObtenerLista() {
-  this.listaAcceso = [];
-
-}
 ObtenerMenuTree() {
-  this.spinner.show();
+  
   let cve_perfil = sessionStorage.getItem('cve_perfil_nav');
   let ArrayS;
   this.dataSource.data = null;
@@ -98,7 +78,7 @@ ObtenerMenuTree() {
        this.dataSource.data = this._menuService.GetTreeView();
     },error => {
         console.log(error);
-        this.spinner.hide();
+     
     }
 );
 

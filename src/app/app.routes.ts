@@ -7,12 +7,14 @@ import { PerfilesComponent } from './pages/perfiles/perfiles.component';
 import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
+import { TestingComponent } from './pages/testing/testing.component';
 
 
 
 
 export const APP_ROUTES: Routes = [
     {path: 'login', component: LoginComponent},
+    {path: 'test', component: TestingComponent},
     {path: 'home', component: HomeComponent,
         children: [
             {path: 'menu', component: MenuComponent},
