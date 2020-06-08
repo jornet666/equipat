@@ -38,7 +38,7 @@ export class NotificacionesComponent implements OnInit {
   campanaAct: number;
   /**Variables correspondientes al formulario de notificaciones */
   FormNot: FormGroup;
-
+  accionCam: string;
   /**Termina Variables de Notificaciones */
   /** OCULTAR O MOSTRAR */
   public listadetalle = true;
@@ -211,9 +211,39 @@ export class NotificacionesComponent implements OnInit {
   /** Agregar campanias */
   agregarcampania() {
     this.listadetalle = false;
-    
     this.showcampania = true;
     this.ObtnerUltimoRegistro();
+    this.accionCam = 'A';
+  }
+  editarCampania(cve_campana: Number){
+    this.ObtenerDetalleCamp(cve_campana);
+    this.listadetalle = false;
+    this.showcampania = true;
+    this.accionCam = 'E';
+  }
+  ObtenerDetalleCamp(cve_campana: Number){
+    
+    this.service.ObtnerDetalleCamp(cve_campana).subscribe(
+      r =>{
+        console.log(r);
+
+      },
+      e =>{
+        console.log(e);
+
+      });
+  }
+  ObtenerDetalleClientes(cve_campana:number){
+    this.service.ObtnerDetalleClientesCamp(cve_campana).subscribe(
+      r => {
+          console.log(r);
+
+      },
+      e => {
+          console.log(e);
+
+      }
+    );
   }
 
   /**
@@ -300,6 +330,7 @@ export class NotificacionesComponent implements OnInit {
     );
   }
   GuardarCampania(){
+
     let camp = new Campania(
                 this.FormNot.controls.Cve_campana.value,
                 this.FormNot.controls.Nombre_campana.value,
@@ -356,8 +387,11 @@ export class NotificacionesComponent implements OnInit {
     this.service.AClienteACampania(Cve_campana,cve_cliente).subscribe(
       response =>
         {
+          
           console.log(response);
-
+          if(Number.parseInt(response["etatus"],10) > 0){
+            alert('Agregado');
+          }
         }
       , error =>
         {

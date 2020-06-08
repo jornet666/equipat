@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve ",
+        "start": "ng serve -o --proxy-config src/proxy.conf.json",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
@@ -30,11 +30,12 @@
         "ng-multiselect-dropdown": "^0.2.10",
         "ngx-pagination": "^5.0.0",
         "ngx-perfect-scrollbar": "^9.0.0",
-        "ngx-spinner": "^9.0.2",
+        "ngx-spinner": "^8.1.0",
         "popper.js": "^1.16.1",
         "rxjs": "~6.4.0",
         "sweetalert2": "^9.11.0",
         "tslib": "^1.10.0",
+        "v8": "^0.1.0",
         "webpack-cli": "^3.3.11",
         "zone.js": "~0.9.1"
     },

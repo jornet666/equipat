@@ -60,7 +60,7 @@ export class SeguridadService {
             },
             error => {
                 console.log('Incorrecto',error);
-                this.router.navigate(['/login']);
+                //this.router.navigate(['/login']);
             }
         );
     }

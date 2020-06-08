@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log("Inicia home");
-    debugger;
+    
     this._seguridadService.ValidarToken();
     console.log("Inicia validar token");
     this.nombre_usuario = sessionStorage.getItem('nombre_usuario');

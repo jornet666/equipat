@@ -134,4 +134,37 @@ export class NotificacionesService {
     };
     return this.http.post(this.url , JSON.stringify(body), httpOptions);
   }
+  EditarCampana(campania:Campania){
+    this.url = this.urlBase + 'EditarrNot';
+    const body =  JSON.stringify(campania);
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url , body, httpOptions);
+  }
+  ObtnerDetalleCamp(cveCamapan: Number){
+    this.url = this.urlBase + 'DetalleNot';
+    const body =  {Cve_campana: cveCamapan};
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url ,JSON.stringify(body), httpOptions);
+  }
+  CambiarrEstatusCamapan(cveCamapan: Number){
+    this.url = this.urlBase + 'CambiarEstatusNot';
+    const body =  {Cve_campana: cveCamapan};
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url ,JSON.stringify(body), httpOptions);
+  }
 }

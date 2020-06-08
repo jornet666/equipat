@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   usuario: string;
   usuarioNav: UsuarioNav;
-  constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) { 
-   
+  constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) {
 
   }
   usuarioValido: boolean;
@@ -54,21 +53,20 @@ export class LoginComponent implements OnInit {
           
           if (this.usuarioNav.cve_usuario > 0 )
           {
-            debugger;
+         
             sessionStorage.setItem('cve_usuario_nav', this.usuarioNav.cve_usuario.toString());
             sessionStorage.setItem('cve_perfil_nav', this.usuarioNav.cve_perfil.toString());
             sessionStorage.setItem('nombre_perfil_nav', this.usuarioNav.nombre_perfil);
             sessionStorage.setItem('nombre_usuario', this.usuarioNav.nombre_usuario);
             sessionStorage.setItem('token', this.usuarioNav.token);
-            console.log(sessionStorage.getItem('nombre_usuario'),sessionStorage.getItem('nombre_perfil_nav'));
-            debugger;
-            this.router.navigate(['/test']);
+
+            this.router.navigate(['/home']);
           } else {
            swal.fire('Advertencia', 'Usuario o contraseña incorrecto', 'warning');
           }
         },
         error => {
-          console.log('Error en login' + error);
+          console.log('Error en login',error);
         }
       );
 
