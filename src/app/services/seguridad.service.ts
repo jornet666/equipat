@@ -12,7 +12,8 @@ export class SeguridadService {
         {
             
             //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
-            this.urlBase = environment.url + '/api/site/';
+            //this.urlBase = environment.url + '/api/site/';
+            this.urlBase = '/api/site/';
             
         }
     AgregarMenuaPerfil(cve_perfilM, cve_menuM){ 
@@ -56,11 +57,11 @@ export class SeguridadService {
                     };
         return this._httpClient.post(this.url, JSON.stringify(body), httpOptions).subscribe(
             response => {
-                console.log('correcto',response);
+                console.log('correcto', response);
             },
             error => {
-                console.log('Incorrecto',error);
-                //this.router.navigate(['/login']);
+                console.log('Incorrecto', error);
+                this.router.navigate(['/login']);
             }
         );
     }

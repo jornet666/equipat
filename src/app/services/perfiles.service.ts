@@ -4,15 +4,18 @@ import {Observable} from 'rxjs';
 import {Perfil} from '../models/perfil.models';
 import { environment } from 'src/environments/environment.prod';
 
+
 @Injectable()
 export class PerfilService {
     public urlBase: string;
     public url: string;
     respuesta: any;
     constructor(public _httpClient: HttpClient
+                
                 )
                 {
-                    this.urlBase = environment.url + '/api/site/';
+                    //this.urlBase = environment.url + '/api/site/';
+                    this.urlBase = '/api/site/';
                 }
 
     ObenerUltimoIndice() {
@@ -58,6 +61,7 @@ export class PerfilService {
         return this.respuesta;
     }
     ObtenerListaTabla(pagina, longitud, criterios = '') {
+        
         this.url = this.urlBase + 'ListadoPerfil';
         const body = {
                 paginacion: pagina,

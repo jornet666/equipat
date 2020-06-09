@@ -13,7 +13,8 @@ export class NotificacionesService {
   public url: string;
 
   constructor(private http: HttpClient) {
-    this.urlBase = environment.url + '/api/site/';
+    //this.urlBase = environment.url + '/api/site/';
+    this.urlBase = '/api/site/';
    }
 
    /**
@@ -154,10 +155,21 @@ export class NotificacionesService {
           Authorization: 'Bearer ' + sessionStorage.getItem('token')
         })
     };
+    return this.http.post(this.url , JSON.stringify(body), httpOptions);
+  }
+  CambiarEstatusCamapan(cveCamapan: Number){
+    this.url = this.urlBase + 'CambiarEstatusNot';
+    const body =  {Cve_campana: cveCamapan};
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
     return this.http.post(this.url ,JSON.stringify(body), httpOptions);
   }
-  CambiarrEstatusCamapan(cveCamapan: Number){
-    this.url = this.urlBase + 'CambiarEstatusNot';
+  ObtnerDetalleClientesCamp(cveCamapan: Number){
+    this.url = this.urlBase + 'DetalleNot';
     const body =  {Cve_campana: cveCamapan};
     const httpOptions = {
         headers: new HttpHeaders({

@@ -1,51 +1,77 @@
 <ngx-spinner></ngx-spinner>
-<div class="container">
-    <div style="background:transparent !important" class="jumbotron">
-        <div class="card" *ngIf="listadetalle">
-            <div class="card-body col-fond-uno">
-                <h5 class="card-title">CAMPAÑAS ENVIADAS</h5>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-8 d-flex justify-content-start" style="border-bottom: 2px solid #4F6F19;;">
+                <h1>Campañas</h1>
+                
             </div>
-            <ng-container *ngIf="showdetale">
+            <div class="col-2">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+                <li class="breadcrumb-item active">Campañas</li>
+            </ol>
+            </div>
+        </div>
+    </div>
+</section>
 
-            </ng-container>
-            <div style="text-align:center">
-                <br>
-                <div class="d-flex justify-content-end ">
-                    <button type="button " class="btn verde" (click)="agregarcampania()">Agregar</button>
+<section class="content">
+    <div class="container-fluid">
+
+    <div class="row" id="tablaPantalla" *ngIf="listadetalle">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-10 d-flex justify-content-center">
+                            <h2 class="card-title"><b>LISTADO DE CAMPAÑAS</b></h2>
+                        </div>
+                        <div class="col-md-2 d-flex justify-content-center">
+                            <button type="button "   class="btn btn-primary verde" (click)="agregarcampania()">Agregar</button>
+                        </div>
+                    </div>
                 </div>
-                <h4>
-                    FECHAS DE NOTIFICACIONES
-                </h4>
-
-                <table class="table">
+                <!-- /.card-header -->
+                <div class="card-body">
+            
+                <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th scope="col">QUITAR</th>
+                            <th scope="col">EDITAR</th>
                             <th scope="col">CAMPAÑA</th>
                             <!-- <th scope="col">HORA</th> -->
                             <th scope="col">FECHA DE NOTIFICACION</th>
                             <th scope="col">QUIEN LO HIZO</th>
-                            <th scope="col">QUITAR</th>
-                            <th scope="col">EDITAR</th>
+                        
                             <th scope="col">ESTATUS</th>
                             <!-- <th scope="col">ACTIVAR</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of listNot | paginate: configfechas">
+                            <td> 
+                                <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
+                                </svg>
+                            </td>
+                            <td> 
+                                <i (click)="editarCampania(item.cvecampania)">
+                                    <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                    </svg>    
+                                </i>
+                            
+                            </td>
                             <td>{{item.nombrecampania}} </td>
                             <!-- <td>{{item.horacampania}} </td> -->
                             <td>{{item.fechacampania}} </td>
                             <td>{{item.quienlohizo}} </td>
-                            <td> 
-                                <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
-                                </svg>
-                            </td>
-                            <td> 
-                                <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
-                                </svg>
-                            </td>
+                            
                             <td>{{item.estatus == 'True'? 'Activo': 'Inactivo'}} </td>
                             <!-- <td>
                                 <div class="checkbox">
@@ -55,206 +81,94 @@
                         </tr>
                     </tbody>
                 </table>
-
-               
-
+                </div>
+                <!-- /.card-body -->
             </div>
+            <!-- /.card -->
         </div>
-        <br>
-     
-        <br>
-        <div class="card" *ngIf="showcampania">
-            <div class="card-body col-fond-uno">
-                <h5 class="card-title">Mensaje</h5>
-
-            </div>
-            <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
-                <div class="form-group">
-                    <label for="Cve_campana">NUMERO DE LA CAMÁÑA</label>
-                    <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
-                </div>
-                <div class="form-group">
-                    <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
-                    <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
-                </div>
-
-                <!-- <div class="form-group">
-                    <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
-                </div> -->
-
-                <!-- <div class="form-group">
-                    <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
-                </div> -->
-
-                <div class="form-group">
-                    <label for="Sms">ENVIO DE SMS</label>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""  id="Sms" name="Sms" formControlName='Sms'   ></label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Notificacion">ENVIO DE NOTIFICACIONE</label>
-                    <div class="checkbox">
-                        <label><input type="checkbox" value=""  id="Notificacion" name="Notificacion" formControlName='Notificacion'></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="Titulo">Titulo</label>
-                    <input type="text" class="form-control" id="Titulo" placeholder="Titulo del mensaje" maxlength="20" name="Titulo" formControlName='Titulo' required>
-                </div>
-                <div class="form-group">
-                    <label for="Mensaje">Mensaje</label>
-                    <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
-                </div>
-                <div class="form-group">
-                    <div class="d-flex justify-content-center ">
-                        <button type="submit " class="btn verde" >Enviar notificaciones</button>
-                    </div>
-                </div>
-
-
-            </form>
-        </div>
-        <div class="card" *ngIf="showusuarionotificaciones">
-            <div class="card-body col-fond-uno">
-                <h5 class="card-title">Usuarios para enviar notificaciones</h5>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" (click)="toggle(0)" checked>
-                        <label class="custom-control-label" for="customRadio1">Enviar a todos.</label>
-                    </div>
-                    <div class="custom-control custom-radio">
-                        <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" (click)="toggle(1)">
-                        <label class="custom-control-label" for="customRadio2">Enviar a un segmento.</label>
-                    </div>
-                </li>
-            </ul>
-            <ng-container *ngIf="show">
-                <div style="background:transparent !important" class="jumbotron">
-                    <fieldset class="border p-2">
-                        <legend class="w-auto">Filtros</legend>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-
-                                        <label for="exampleFormControlInput1">Nombre del cliente</label> &nbsp;
-                                        <i class="fa fa-key icon">
-                                            <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallenumsolicitud()" >
-                                                <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;" />
-                                              </svg>
-                                        </i>
-                                        <input type="text" (keypress)="numberOnly($event)" class="form-control" id="exampleFormControlInput1" placeholder="Nombre del cliente " maxlength="10">
-
-                                        <label for="exampleFormControlInput1">REGION</label>&nbsp;
-                                        <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallegenerico()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                        <!-- <ng-multiselect-dropdown [placeholder]="'NO DISPONIBLE'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                        </ng-multiselect-dropdown> -->
-                                        <label for="exampleFormControlInput1">DUE</label>&nbsp;
-                                        <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallegenerico()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                        <!-- <ng-multiselect-dropdown [placeholder]="'NO DISPONIBLE'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                        </ng-multiselect-dropdown> -->
-                                        <label for="exampleFormControlInput1">ESTATUS</label>&nbsp;
-                                        <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallegenerico()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                        <!-- <ng-multiselect-dropdown [placeholder]="'NO DISPONIBLE'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                        </ng-multiselect-dropdown> -->
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label for="exampleFormControlInput1">SUCURSALES</label>&nbsp;
-                                    <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallesucursal()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'Selecciona una sucursal'" [data]="dropdownListSucursal" [(ngModel)]="selectedItemsSucursal" [settings]="dropdownSettingsSucursal" (onSelect)="onItemSelectSucursal($event)" (onSelectAll)="onSelectAllSucursal($event)">
-                                    </ng-multiselect-dropdown> -->
-
-                                    <label for="exampleFormControlInput1">PRODUCTOS</label>&nbsp;
-                                    <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detalleproductos()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'Selecciona un producto'" [data]="dropdownListProductos" [(ngModel)]="selectedItemsProductos" [settings]="dropdownSettingsProductos" (onSelect)="onItemSelectProductos($event)" (onSelectAll)="onSelectAllProductos($event)">
-                                    </ng-multiselect-dropdown> -->
-
-
-                                    <label for="exampleFormControlInput1">AGRUPACIÓN DE PRODUCTOS</label>&nbsp;
-                                    <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallegenerico()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'NO DISPONIBLE'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                    </ng-multiselect-dropdown> -->
-
-                                    <label for="exampleFormControlInput1">PORCENTAJE</label>&nbsp;
-                                    <i class="fa fa-key icon">
-                                        <svg class="bi bi-question-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" (click)="detallegenerico()" >
-                                            <path fill-rule="evenodd" d="M16 8A8 8 0 110 8a8 8 0 0116 0zM6.57 6.033H5.25C5.22 4.147 6.68 3.5 8.006 3.5c1.397 0 2.673.73 2.673 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.355H7.117l-.007-.463c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.901 0-1.358.603-1.358 1.384zm1.251 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" clip-rule="evenodd" style="color: blue;"/>
-                                          </svg>
-                                    </i>
-                                    <!-- <ng-multiselect-dropdown [placeholder]="'NO DISPONIBLE'" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                    </ng-multiselect-dropdown> -->
-
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </ng-container>
-            <div class="d-flex justify-content-end ">
-                <button type="button " class="btn verde" (click)="cargaregistrospush()">Consultar</button>
-            </div>
-            <div style="text-align:center">
-                <h4>
-                    Usuarios disponibles para enviar notificación
-                </h4>
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">SELECCIONAR</th>
-                            <th scope="col">NOTIFICACIÓN</th>
-                            <th scope="col">CLIENTE</th>
-                            <th scope="col">SUCURSAL</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of collection.data | paginate: config">
-                            <div class="checkbox">
-                                <label><input type="checkbox" value="item.cveregistro" [checked]="item.existe" (click)="AgregarCliente(campanaAct,item.cveusuario)" ></label>
-                            </div>
-                            <td><svg class="bi bi-info-circle-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" style="color: #4F6F19;"/>
-                              </svg></td>
-                            <td>{{item.nombre}} </td>
-                            <td>{{item.sucursal}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <!-- /.col -->
     </div>
-</div>
-
-
+    <div class="row" id=formPantalla #formPantalla *ngIf="showcampania">
+        <!-- left column -->
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <!-- general form elements -->
+            <div class="card card-primary" >
+                <div class="verde card-header row ">
+                    <div class="col-md-2">
+                        <i (click)="RegresaraTabla()" style="color:white; font-size:xx-large;" class="nav-icon fas fa-arrow-circle-left"></i>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="card-title">{{nameAccion}}</h2>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <div class="row card">
+                <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
+                 
+                        <div class="card-body col-md-12">
+                            <div class="row form-group col-md-6">
+                                <label for="Cve_campana">NUMERO DE LA CAMPAÑA</label>
+                                <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
+                            </div>
+                            <div class="row form-group col-md-6">
+                                <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
+                                <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
+                            </div>
+            
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
+                            </div> -->
+            
+                            <!-- <div class="form-group">
+                                <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
+                            </div> -->
+            
+                            <div class="row form-group col-md-6">
+                                <label for="Sms">ENVIO DE SMS</label>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value=""  id="Sms" name="Sms" formControlName='Sms'   ></label>
+                                </div>
+                            </div>
+                            <div class="row form-group col-md-6">
+                                <label for="Notificacion">ENVÍO DE NOTIFICACIÓN</label>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value=""  id="Notificacion" name="Notificacion" formControlName='Notificacion'></label>
+                                </div>
+                            </div>
+            
+                            <div class="row form-group col-md-6">
+                                <label for="Titulo">Titulo</label>
+                                <input type="text" class="form-control" id="Titulo" placeholder="Titulo del mensaje" maxlength="20" name="Titulo" formControlName='Titulo' required>
+                            </div>
+                            <div class="row form-group col-md-6">
+                                <label for="Mensaje">Mensaje</label>
+                                <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
+                            </div>
+                            <div class="row form-group col-md-6">
+                                <div class="d-flex justify-content-center ">
+                                    <button type="submit " class="btn verde" >Enviar notificaciones</button>
+                                </div>
+                            </div>
+            
+            
+                            
+                        </div>
+                   
+                    
+                    
+                </form>
+            </div>
+           </div>
+    </div>
+        <!-- /.row -->
+    
+    <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
 <!--container close-->

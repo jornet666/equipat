@@ -6,6 +6,7 @@ import { CampaniasModel } from 'src/app/models/usuario.home';
 import { UsuarioModel } from '../../models/usuario.home';
 import {Campania} from '../../models/campania.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -36,6 +37,7 @@ export class NotificacionesComponent implements OnInit {
           totalItems: 0
         }
   campanaAct: number;
+  nameAccion: string;
   /**Variables correspondientes al formulario de notificaciones */
   FormNot: FormGroup;
   accionCam: string;
@@ -77,7 +79,10 @@ export class NotificacionesComponent implements OnInit {
       screenReaderPageLabel: 'page',
       screenReaderCurrentLabel: `You're on page`
   };
-  constructor(private service: NotificacionesService, private formbuilder: FormBuilder,) {
+  constructor(  private service: NotificacionesService
+              , private formbuilder: FormBuilder
+              , private spinner: NgxSpinnerService
+            ) {
     this.FormNot = this.formbuilder.group({
                   Cve_campana: 0,
                   Nombre_campana: '',
@@ -96,7 +101,11 @@ export class NotificacionesComponent implements OnInit {
     /**
      * Informacion estatica
      */
-
+    this.spinner.show();
+    setTimeout(() => {
+      
+      this.spinner.hide();
+    }, 5000);
     this.dropdownList = [
     ];
     this.selectedItems = [
@@ -214,29 +223,54 @@ export class NotificacionesComponent implements OnInit {
     this.showcampania = true;
     this.ObtnerUltimoRegistro();
     this.accionCam = 'A';
+    this.nameAccion = 'AGREGAR';
   }
   editarCampania(cve_campana: Number){
     this.ObtenerDetalleCamp(cve_campana);
+    this.ObtenerDetalleClientes(cve_campana);
     this.listadetalle = false;
     this.showcampania = true;
     this.accionCam = 'E';
+    this.nameAccion = "EDITAR";
+  }
+  RegresaraTabla(){
+    this.listadetalle = true;
+    this.showcampania = false;
   }
   ObtenerDetalleCamp(cve_campana: Number){
     
     this.service.ObtnerDetalleCamp(cve_campana).subscribe(
-      r =>{
+      r => {
         console.log(r);
-
+        this.FormNot.controls.Cve_campana.setValue(r['Cve_campana']);
+        this.FormNot.controls.Mensaje.setValue(r['Mensaje']);
+        this.FormNot.controls.Titulo.setValue(r['Titulo']);
+        this.FormNot.controls.Nombre_campana.setValue(r['Nombre_campana']);
+        this.FormNot.controls.Sms.setValue(r['Sms'].toLowerCase() === 'true');
+        this.FormNot.controls.activo.setValue(r['activo'].toLowerCase() === 'true');
+        this.FormNot.controls.Notificacion.setValue(r['Notificacion'].toLowerCase() === 'true');
+        this.FormNot.controls.Personalizado.setValue(r['Personalizado'].toLowerCase() === 'true');
+       
       },
-      e =>{
+      e => {
         console.log(e);
 
       });
   }
-  ObtenerDetalleClientes(cve_campana:number){
-    this.service.ObtnerDetalleClientesCamp(cve_campana).subscribe(
+  ObtenerDetalleClientes(cve_campana: Number){
+    this.service.CargaTablaClientes(cve_campana).subscribe(
       r => {
           console.log(r);
+          
+          for (const item in r) {
+              this.contadorclientes++;
+              const data = new UsuarioModel();
+              data.cveusuario = r[item].cveregistro;
+              data.nombre = r[item].nombre;
+              data.sucursal = r[item].sucursal;
+              data.existe = Number.parseInt(r[item].Existe, 10) === 1 ;
+              this.collection.data.push(data);
+            }
 
       },
       e => {
@@ -287,7 +321,6 @@ export class NotificacionesComponent implements OnInit {
 
     this.service.CargaTablaClientes(this.campanaAct).subscribe( resp => {
       console.log(resp);
-        
       // tslint:disable-next-line: forin
       for (const item in resp) {
         this.contadorclientes++;
@@ -302,6 +335,7 @@ export class NotificacionesComponent implements OnInit {
     });
   }
   CargarTablaNotificaciones(){
+   
     this.service.CargaTablanot(1, 10, '').subscribe(
       response =>
         {
@@ -321,11 +355,12 @@ export class NotificacionesComponent implements OnInit {
                   currentPage: 1,
                   totalItems: response[0].totalRegistros
           }
-          
+          this.spinner.hide();
         },
       error => 
         {
           console.log(error);
+          this.spinner.hide();
         }
     );
   }
@@ -374,7 +409,6 @@ export class NotificacionesComponent implements OnInit {
       response =>
         {
           console.log(response);
-          
           this.FormNot.controls.Cve_campana.setValue(response['respuesta']);
         }
       ,error =>
@@ -387,9 +421,9 @@ export class NotificacionesComponent implements OnInit {
     this.service.AClienteACampania(Cve_campana,cve_cliente).subscribe(
       response =>
         {
-          
+
           console.log(response);
-          if(Number.parseInt(response["etatus"],10) > 0){
+          if(Number.parseInt(response["etatus"], 10) > 0) {
             alert('Agregado');
           }
         }
