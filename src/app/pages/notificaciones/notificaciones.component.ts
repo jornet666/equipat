@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import swal from 'sweetalert2';
 import { NotificacionesService } from '../../services/notificaciones.service';
 import { Usuario } from '../../models/usuario.models';
 import { CampaniasModel } from 'src/app/models/usuario.home';
-import { UsuarioModel } from '../../models/usuario.home';
+import { UsuarioModel,ConfModel } from '../../models/usuario.home';
 import {Campania} from '../../models/campania.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-
+import {MatDatepickerModule, MatDatepicker} from '@angular/material/datepicker'; 
+import { DateAdapter } from '@angular/material';
 
 
 @Component({
@@ -18,6 +19,13 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class NotificacionesComponent implements OnInit {
 
+ /**TimePicker */
+ time = {hour: 12, minute: 12};
+ roomsFilter = {
+    date: '',
+    hour : ''
+ }
+ /**Termina timepicker */
   /**
    * Carga informacion estatica
    */
@@ -25,11 +33,12 @@ export class NotificacionesComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-
+  
   /** Fechas de notificaciones */
   contadorclientes = 0;
   contadorNotificaciones = 0;
   listNot = [];
+  listConf = [];
   configfechas = { 
           id: 'custom',
           itemsPerPage: 10,
@@ -48,6 +57,7 @@ export class NotificacionesComponent implements OnInit {
   public showusuarionotificaciones = false;
   public showcampania = false;
   public show = false;
+  public showFechas= true;
 
 
   public buttonName: any = 'Show';
@@ -95,6 +105,7 @@ export class NotificacionesComponent implements OnInit {
                   activo: true,
                   Personalizado: false
     });
+   
    }
 
   ngOnInit() {
@@ -225,21 +236,25 @@ export class NotificacionesComponent implements OnInit {
     this.accionCam = 'A';
     this.nameAccion = 'AGREGAR';
   }
-  editarCampania(cve_campana: Number){
+  editarCampania(cve_campana: number){
     this.ObtenerDetalleCamp(cve_campana);
     this.ObtenerDetalleClientes(cve_campana);
+    this.ObtenerListaFechasCamp(cve_campana);
     this.listadetalle = false;
     this.showcampania = true;
+    this.showFechas = false;
+    this.showusuarionotificaciones = true;
     this.accionCam = 'E';
     this.nameAccion = "EDITAR";
   }
   RegresaraTabla(){
     this.listadetalle = true;
     this.showcampania = false;
+    this.showusuarionotificaciones = false;
   }
-  ObtenerDetalleCamp(cve_campana: Number){
-    
-    this.service.ObtnerDetalleCamp(cve_campana).subscribe(
+  ObtenerDetalleCamp(cve_campana: number){
+      this.campanaAct = cve_campana;
+      this.service.ObtnerDetalleCamp(cve_campana).subscribe(
       r => {
         console.log(r);
         this.FormNot.controls.Cve_campana.setValue(r['Cve_campana']);
@@ -258,6 +273,7 @@ export class NotificacionesComponent implements OnInit {
       });
   }
   ObtenerDetalleClientes(cve_campana: Number){
+    this.collection.data = [];
     this.service.CargaTablaClientes(cve_campana).subscribe(
       r => {
           console.log(r);
@@ -365,8 +381,8 @@ export class NotificacionesComponent implements OnInit {
     );
   }
   GuardarCampania(){
-
-    let camp = new Campania(
+    
+    const camp = new Campania(
                 this.FormNot.controls.Cve_campana.value,
                 this.FormNot.controls.Nombre_campana.value,
                 this.FormNot.controls.Usuario_creo.value,
@@ -379,26 +395,54 @@ export class NotificacionesComponent implements OnInit {
                 this.FormNot.controls.activo.value ? 1 : 0,
                 this.FormNot.controls.Personalizado.value ? 1 : 0
                 );
-    this.service.AgregarCampania(camp).subscribe(
-      response => 
-        {
-          console.log(response);
-          if(Number.parseInt(response['estatus_r']) > 0)
-            {
-              swal.fire('¡Súper!',response['respuesta'] , 'success');
-              this.showusuarionotificaciones = true;
-            }
-          else  
-            {
-              swal.fire('¡Ops!',response['respuesta'] , 'error');
-            }
-        }
-      ,error =>
-        {
-          console.log(error);
-          
-        }
-    );
+      
+      
+    if (this.accionCam === 'A') {
+      
+      this.service.AgregarCampania(camp).subscribe(
+        response => 
+          {
+            console.log(response);
+            if(Number.parseInt(response['estatus_r'],10) > 0)
+              {
+                swal.fire('¡Súper!',response['respuesta'] , 'success');
+                this.showusuarionotificaciones = true;
+              }
+            else  
+              {
+                swal.fire('¡Ops!',response['respuesta'] , 'error');
+              }
+          }
+        ,error =>
+          {
+            console.log(error);
+            
+          }
+      );
+    }
+    else if (this.accionCam === 'E'){
+      this.service.EditarCampana(camp).subscribe(
+        response => 
+          {
+            console.log(response);
+            if(Number.parseInt(response['estatus_r'],10) > 0)
+              {
+                swal.fire('¡Súper!',response['respuesta'] , 'success');
+                this.showusuarionotificaciones = true;
+              }
+            else  
+              {
+                swal.fire('¡Ops!',response['respuesta'] , 'error');
+              }
+          }
+        ,error =>
+          {
+            console.log(error);
+            
+          }
+      );
+    }
+   
   }
   ObtenerTablaClientes(){
     
@@ -410,6 +454,7 @@ export class NotificacionesComponent implements OnInit {
         {
           console.log(response);
           this.FormNot.controls.Cve_campana.setValue(response['respuesta']);
+          
         }
       ,error =>
         {
@@ -417,8 +462,9 @@ export class NotificacionesComponent implements OnInit {
         }
     );
   }
-  AgregarCliente(Cve_campana,cve_cliente){
-    this.service.AClienteACampania(Cve_campana,cve_cliente).subscribe(
+  AgregarCliente(cve_cliente){
+    this.campanaAct = this.FormNot.controls.Cve_campana.value;
+    this.service.AClienteACampania(this.campanaAct, cve_cliente).subscribe(
       response =>
         {
 
@@ -434,6 +480,74 @@ export class NotificacionesComponent implements OnInit {
         }
     );
   }
+  AgregarFechaEnvio(){
+    this.roomsFilter.hour =  (this.time.hour.toString().length === 1 ? '0' + this.time.hour : this.time.hour)
+                              + ':'
+                              + (this.time.minute.toString().length === 1 ? '0' + this.time.minute : this.time.minute)
+    const cve_campana = this.FormNot.controls.Cve_campana.value;
+    const fecha = this.roomsFilter.date + ' ' + this.roomsFilter.hour;
+    this.service.AgregarFechaCampania(cve_campana, fecha).subscribe(
+      r => 
+        {
+          console.log(r);
+
+          this.ObtenerListaFechasCamp(cve_campana);
+          
+        }
+      ,e => 
+        {
+          console.log(e);
+          
+        }
+    );    
+  }
+  EliminarFechaEnvio(cveConf: number, cveCamp: number){
+    this.service.EliminarFechaCampania(cveConf, cveCamp).subscribe(
+      r => {
+        console.log(r);
+        this.ObtenerListaFechasCamp(cveCamp);
+      }
+      , e =>{
+
+      }
+    );
+
+  }
+  ObtenerListaFechasCamp(cve_campana: number){
+    this.listConf = [];
+    this.service.ObtenerListaFechasCamnia(cve_campana).subscribe(
+      r => {
+     
+        for (const item in r)
+            {
+              const data = new ConfModel();
+              data.cvecampania = r[item].Cve_campana;
+              data.cveconf = r[item].Cve_confi;
+              data.fechacampania = r[item].Fecha;
+              data.horacampania = r[item].Hora;
+              data.enviado = r[item].Enviado;
+              this.listConf.push(data);
+          }
+      }
+    ,e => {
+      console.log(e);
+      
+    }
+    );
+
+    
+  }
+  public onDate(event): void {
+
+      let fecha = new Date(this.roomsFilter.date).toLocaleDateString('ko-KR').toString();
+      let fSplit = fecha.replace(/\s/g, '').split('.');
+      fecha = fSplit[0] + '-'
+            + (fSplit[1].length === 1 ? '0' + fSplit[1] : fSplit[1]) + '-'
+            + (fSplit[2].length === 1 ? '0' + fSplit[2] : fSplit[2]);
+      this.roomsFilter.date = fecha;
+  }
+
+  
   /**
    * TERMINA
    * Se encarga de mostrar todos los clientes
@@ -456,4 +570,6 @@ export class NotificacionesComponent implements OnInit {
    * TERMINA
    * Validaciones de campos
    */
+
+ 
 }

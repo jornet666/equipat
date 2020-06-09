@@ -18,3 +18,10 @@ export class CampaniasModel {
   quienlohizo: string;
   estatus: boolean;
 }
+export class ConfModel {
+  cvecampania: string;
+  cveconf: string;
+  horacampania: string;
+  fechacampania: string;
+  enviado: boolean;
+}

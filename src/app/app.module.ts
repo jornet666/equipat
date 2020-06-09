@@ -33,13 +33,14 @@ import { NotificacionesComponent } from './pages/notificaciones/notificaciones.c
 
 import { MatToolbarModule, MatIconModule, MatMenuModule, MatTreeModule} from '@angular/material';
 import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule} from '@angular/material';
+import {MatNativeDateModule} from '@angular/material/core';
 import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material';
 import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatDatepickerModule} from '@angular/material/datepicker'; 
 import {NestedTreeControl} from '@angular/cdk/tree';
-
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -47,7 +48,7 @@ import {NestedTreeControl} from '@angular/cdk/tree';
 
 //cdk
 import {PortalModule} from '@angular/cdk/portal';
-import {MatNativeDateModule} from '@angular/material/core';
+
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
 
@@ -83,6 +84,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BrowserModule,
     HttpClientModule,
     APP_ROUTING,
+    NgbModule,
     FormsModule,
     ReactiveFormsModule,
     // PerfectScrollbarModule,
@@ -97,13 +99,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     // MatMenuModule,
     // MatNativeDateModule,
     // MatTreeModule,
-    // MatInputModule,
-  MatPaginatorModule,
+    // MatInputModule
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatPaginatorModule,
     // MatProgressSpinnerModule,
     // MatSortModule,
-  MatTableModule,
+    MatTableModule,
     // PortalModule,
-  MatButtonModule,
+    MatButtonModule,
     // Injectable,
     // HttpClient,
   // HttpHeaders,

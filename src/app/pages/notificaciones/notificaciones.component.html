@@ -30,7 +30,7 @@
                             <h2 class="card-title"><b>LISTADO DE CAMPAÑAS</b></h2>
                         </div>
                         <div class="col-md-2 d-flex justify-content-center">
-                            <button type="button "   class="btn btn-primary verde" (click)="agregarcampania()">Agregar</button>
+                            <button type="button"   class="btn btn-primary verde" (click)="agregarcampania()">Agregar</button>
                         </div>
                     </div>
                 </div>
@@ -106,62 +106,174 @@
             <!-- /.card-header -->
             <!-- form start -->
             <div class="row card">
-                <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
-                 
-                        <div class="card-body col-md-12">
-                            <div class="row form-group col-md-6">
-                                <label for="Cve_campana">NUMERO DE LA CAMPAÑA</label>
-                                <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
-                            </div>
-                            <div class="row form-group col-md-6">
-                                <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
-                                <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
-                            </div>
-            
-                            <!-- <div class="form-group">
-                                <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
-                            </div> -->
-            
-                            <!-- <div class="form-group">
-                                <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
-                            </div> -->
-            
-                            <div class="row form-group col-md-6">
-                                <label for="Sms">ENVIO DE SMS</label>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value=""  id="Sms" name="Sms" formControlName='Sms'   ></label>
-                                </div>
-                            </div>
-                            <div class="row form-group col-md-6">
-                                <label for="Notificacion">ENVÍO DE NOTIFICACIÓN</label>
-                                <div class="checkbox">
-                                    <label><input type="checkbox" value=""  id="Notificacion" name="Notificacion" formControlName='Notificacion'></label>
-                                </div>
-                            </div>
-            
-                            <div class="row form-group col-md-6">
-                                <label for="Titulo">Titulo</label>
-                                <input type="text" class="form-control" id="Titulo" placeholder="Titulo del mensaje" maxlength="20" name="Titulo" formControlName='Titulo' required>
-                            </div>
-                            <div class="row form-group col-md-6">
-                                <label for="Mensaje">Mensaje</label>
-                                <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
-                            </div>
-                            <div class="row form-group col-md-6">
-                                <div class="d-flex justify-content-center ">
-                                    <button type="submit " class="btn verde" >Enviar notificaciones</button>
-                                </div>
-                            </div>
-            
-            
-                            
-                        </div>
+                <div class="row">
                    
+                    <div class="col-md-5">
+                        <fieldset>
+                            <legend>Datos de Campaña</legend>
+                            <form [formGroup]="FormNot" (ngSubmit)="GuardarCampania()" role="form">
+                     
+                                <div class="card-body col-md-12">
+                                    <div class="row form-group ">
+                                        <label for="Cve_campana">NUMERO DE LA CAMPAÑA</label>
+                                        <input type="text" class="form-control" id="Cve_campana" placeholder="ID campaña" maxlength="20" formControlName='Cve_campana'  disabled required >
+                                    </div>
+                                    <div class="row form-group ">
+                                        <label for="Nombre_campana">NOMBRE DE LA CAMPAÑA</label>
+                                        <input type="text" class="form-control" id="Nombre_campana" placeholder="Nombre de la campaña " maxlength="20" name="Nombre_campana" formControlName='Nombre_campana'  required >
+                                    </div>
+                                    <div class="row form-group">
+                                        <label for="Titulo">Titulo</label>
+                                        <input type="text" class="form-control" id="Titulo" placeholder="Titulo del mensaje" maxlength="20" name="Titulo" formControlName='Titulo' required>
+                                    </div>
+                                    <div class="row form-group ">
+                                        <label for="Mensaje">Mensaje</label>
+                                        <textarea class="form-control" id="Mensaje" rows="3" placeholder="Ingresa el mensaje a enviar"  name="Mensaje" formControlName='Mensaje'></textarea>
+                                    </div>
+                                    <!-- <div class="form-group">
+                                        <label for="exampleFormControlInput1">CAMPAÑA CREADA POR</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="QUIEN CREO LA CAMPAÑA" maxlength="20">
+                                    </div> -->
                     
+                                    <!-- <div class="form-group">
+                                        <label for="exampleFormControlInput1">FECHA DE CREACIÓN</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="FECHA DE CREACION" maxlength="20">
+                                    </div> -->
                     
-                </form>
+                                    <div class="row form-group">
+                                        <div class=" custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"  id="Sms" name="Sms" formControlName='Sms'>
+                                            <label  class="custom-control-label" for="Sms"><b>ENVIO DE SMS </b></label> 
+                                        </div> 
+                                    </div>
+                                  
+                                    <div class="row form-group">
+                                        <div class="col-md-12 custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input"  id="Notificacion" name="Notificacion" formControlName='Notificacion'>
+                                            <label class="custom-control-label" for="Notificacion"><b>ENVÍO DE NOTIFICACIÓN</b> </label>  
+                                        </div> 
+                                    </div>
+                                </div>
+                           
+                            
+                            
+                        </form>
+                        </fieldset>
+                       
+                    </div>
+                    <div class="col-md-7">
+                        <fieldset [disabled]= "showFechas">
+                            <legend>Fechas y hora de envíos</legend>
+                          
+                            <div class="row d-flex align-items-center">
+                                <div class="form-group col-md-5">
+                                  
+                                        <input matInput [matDatepicker]="picker" placeholder="Fecha" class="border-botoom" [(ngModel)]="roomsFilter.date" (dateChange)="onDate($event)"> 
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker [(ngModel)]="roomsFilter.date" ngDefaultControl ></mat-datepicker>
+                                  
+                                    
+                                </div>
+                                <div class="form-group col-md-4">
+                                   <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <button type="button "   class="btn btn-primary verde" (click)="AgregarFechaEnvio()">Agregar</button>
+                                 </div>
+                            </div>
+                              <div class="row">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">QUITAR</th>
+                                            <th scope="col">FECHA DE PROGRAMADA</th>
+                                            <th scope="col">HORA  DE PROGRAMADA</th>
+                                            <th scope="col">ESTATUS</th>
+                                            <!-- <th scope="col">ACTIVAR</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of listConf | paginate: configfechas">
+                                            <td> 
+                                                <i (click)="EliminarFechaEnvio(item.cveconf,item.cvecampania)">
+                                                     <svg class="bi bi-trash-fill cursorsobre" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path _ngcontent-rbu-c1="" clip-rule="evenodd" d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5a.5.5 0 00-1 0v7a.5.5 0 001 0v-7z" fill-rule="evenodd" style="color: red;"></path>
+                                                    </svg>
+                                                </i>
+                                               
+                                            </td>
+                                        
+                                            <td>{{item.fechacampania}} </td>
+                                            <!-- <td>{{item.horacampania}} </td> -->
+                                            <td>{{item.horacampania}} </td>
+                                          
+                                            <td>{{item.enviado ===1 ? 'Enviado': 'Pendiente'}} </td>
+                                            <!-- <td>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value=""></label>
+                                                </div>
+                                            </td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                              </div>  
+                          
+                           
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-center form-group col-md-12">
+                        <button type="button" (click)="GuardarCampania()" class="btn verde" >Enviar notificaciones</button>
+                    </div>
+                </div>
+            </div>
+            
+           </div>
+    </div>
+    <div class="row" id=ClientesPantalla #formPantalla *ngIf="showusuarionotificaciones">
+        <!-- left column -->
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <div class="card">
+                <div class="verde card-header">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <h2 class="card-title"><b>LISTADO DE CLIENTES</b></h2>
+                        </div>
+                       
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">SELECCIONAR</th>
+                            <th scope="col">NOMBRE</th>
+                            <th scope="col">SUCURSAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of collection.data | paginate: configfechas">
+                            <td class="was-validated"> 
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" id='cb{{item.cveusuario}}' (click)="AgregarCliente(item.cveusuario)" [checked]="item.existe" class="custom-control-input" required>
+                                    <label class="custom-control-label" for='cb{{item.cveusuario}}'></label>
+                                    <div class="invalid-feedback">No agregado</div>
+                                </div>
+                                
+                            </td>
+                            
+                            <td>{{item.nombre}} </td>
+                            <!-- <td>{{item.horacampania}} </td> -->
+                            <td>{{item.sucursal}} </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+                <!-- /.card-body -->
             </div>
            </div>
     </div>

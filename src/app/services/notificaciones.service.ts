@@ -13,8 +13,8 @@ export class NotificacionesService {
   public url: string;
 
   constructor(private http: HttpClient) {
-    //this.urlBase = environment.url + '/api/site/';
-    this.urlBase = '/api/site/';
+    this.urlBase = environment.url + '/api/site/';
+    //this.urlBase = '/api/site/';
    }
 
    /**
@@ -136,7 +136,7 @@ export class NotificacionesService {
     return this.http.post(this.url , JSON.stringify(body), httpOptions);
   }
   EditarCampana(campania:Campania){
-    this.url = this.urlBase + 'EditarrNot';
+    this.url = this.urlBase + 'EditarNot';
     const body =  JSON.stringify(campania);
     const httpOptions = {
         headers: new HttpHeaders({
@@ -169,8 +169,52 @@ export class NotificacionesService {
     return this.http.post(this.url ,JSON.stringify(body), httpOptions);
   }
   ObtnerDetalleClientesCamp(cveCamapan: Number){
+    
     this.url = this.urlBase + 'DetalleNot';
     const body =  {Cve_campana: cveCamapan};
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url ,JSON.stringify(body), httpOptions);
+  }
+  AgregarFechaCampania(cveCamapan: number, fechas: string){
+
+    this.url = this.urlBase + 'AgregarFechaCam';
+    const body =  {
+                    Cve_campana: cveCamapan,
+                    Fecha_programada: fechas
+                  };
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url ,JSON.stringify(body), httpOptions);
+  }
+  EliminarFechaCampania(cveConf: number, cveCamapan: number ){
+    this.url = this.urlBase + 'EliminarFechaCam';
+    const body =  {
+                    Cve_campana: cveCamapan,
+                    Cve_confi: cveConf
+                  };
+    const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + sessionStorage.getItem('token')
+        })
+    };
+    return this.http.post(this.url ,JSON.stringify(body), httpOptions);
+
+  }
+  ObtenerListaFechasCamnia(cveCamapan: number){
+    this.url = this.urlBase + 'ObtenerFechaCam';
+    const body =  {
+                    Cve_campana: cveCamapan
+                  };
     const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',

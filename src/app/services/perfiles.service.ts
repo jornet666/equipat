@@ -14,8 +14,8 @@ export class PerfilService {
                 
                 )
                 {
-                    //this.urlBase = environment.url + '/api/site/';
-                    this.urlBase = '/api/site/';
+                    this.urlBase = environment.url + '/api/site/';
+                    //this.urlBase = '/api/site/';
                 }
 
     ObenerUltimoIndice() {

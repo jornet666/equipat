@@ -18,8 +18,8 @@ export class MenuService {
     constructor(public _httpClient: HttpClient)
                 {
                     console.log("menu service");
-                //this.urlBase = environment.url + '/api/site/';
-                this.urlBase = '/api/site/';
+                this.urlBase = environment.url + '/api/site/';
+                //this.urlBase = '/api/site/';
                 }
 
     ObtenerMenuPerfil(cve_perfil) {

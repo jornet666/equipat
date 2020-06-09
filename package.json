@@ -21,6 +21,7 @@
         "@angular/platform-browser": "~8.2.4",
         "@angular/platform-browser-dynamic": "~8.2.4",
         "@angular/router": "~8.2.4",
+        "@ng-bootstrap/ng-bootstrap": "^5.3.1",
         "@types/jquery": "^3.3.38",
         "@webpack-cli/init": "^0.3.0",
         "bootstrap": "^4.5.0",
