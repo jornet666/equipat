@@ -38,13 +38,13 @@ import { MatSortModule, MatTableModule, MatButtonModule} from '@angular/material
 import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatListModule} from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatDatepickerModule} from '@angular/material/datepicker'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 //Socket
 import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
-const config: SocketIoConfig = {url: 'https://real-chat-enc.herokuapp.com', options: {}};
+const config: SocketIoConfig = {url: 'https://chatfull.herokuapp.com', options: {}};
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
@@ -73,7 +73,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     FooterComponent,
     NotificacionesComponent,
     TestingComponent,
-    ChatComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,

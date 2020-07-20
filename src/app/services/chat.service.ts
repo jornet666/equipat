@@ -15,7 +15,7 @@ export class ChatService   {
   private userId: string;
 
   constructor( ) {
-    this.socket = io('https://real-chat-enc.herokuapp.com',{});
+    this.socket = io('chatfull.herokuapp.com',{});
   }
 // EnviarMensaje(mensaje: Mensaje) {
   EnviarMensaje(sc: string, rc: string, cont: string) {
@@ -35,7 +35,7 @@ Recibirmensajes(){
 
 AsignarID(id: string) {
   this.socket = io(
-    'https://real-chat-enc.herokuapp.com'
+    'https://chatfull.herokuapp.com'
     , {
       query:  {chatID: id}
     }).connect();

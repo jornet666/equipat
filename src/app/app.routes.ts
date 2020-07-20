@@ -13,20 +13,21 @@ import { ChatComponent } from './pages/chat/chat.component';
 
 
 
-
 export const APP_ROUTES: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'test', component: TestingComponent},
+    // {path: 'chatuno', component: ChatInboxComponent},
+    {path: 'chat', component: ChatComponent},
     {path: 'home', component: HomeComponent,
         children: [
             {path: 'menu', component: MenuComponent},
             {path: 'perfiles', component: PerfilesComponent},
             {path: 'usuarios', component: UsuariosComponent},
             {path: 'push', component: NotificacionesComponent},
-            {path: 'chat', component: ChatComponent}
+            // {path: 'chat', component: ChatComponent}
 
         ]},
-    {path: '**', pathMatch: 'full', redirectTo: 'login'}
+    {path: '**', pathMatch: 'full', redirectTo: 'chat'}
 ];
 
 // tslint:disable-next-line: variable-name
