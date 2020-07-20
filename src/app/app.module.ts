@@ -42,22 +42,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-
-
-
-
-//cdk
-import {PortalModule} from '@angular/cdk/portal';
-
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-
-
-
+//Socket
+import {SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
+const config: SocketIoConfig = {url: 'https://real-chat-enc.herokuapp.com', options: {}};
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
-import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { TestingComponent } from './pages/testing/testing.component';
+import { ChatComponent } from './pages/chat/chat.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -78,7 +72,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditarMenuComponent,
     FooterComponent,
     NotificacionesComponent,
-    TestingComponent
+    TestingComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +82,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    // PerfectScrollbarModule,
+    SocketIoModule.forRoot(config),
     MatSidenavModule,
     MatListModule,
     BrowserAnimationsModule,
@@ -117,7 +112,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     RouterModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [{
     provide: PERFECT_SCROLLBAR_CONFIG,
     useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG.handlers

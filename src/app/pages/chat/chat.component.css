@@ -1,0 +1,63 @@
+.chatBox{
+    height: 500px;
+    width: 450px; 
+    bottom: 0; 
+    display: inline-block;
+    margin-left: 3px; 
+    border: 1px solid green;
+    left: 0;
+}
+.chatBoxHeader{
+    background-color: green;
+    color: white; 
+    top:0; 
+    width: 100%;
+    height: 8%;
+}
+.chatBoxHeader a,
+.chatBoxHeader label {
+    text-align: center;
+}
+.chatBoxHeader label{
+    width: 95%;
+}
+.chatBoxHeader a{
+    width: 5%;
+    cursor: pointer;
+}
+.bodyChat{
+    height: 86%; 
+    background-color: white;
+    overflow: scroll;
+}
+.footerChat{
+    height: 5%;
+}
+.footerChat input[type=text]{
+    width:90%;
+    height: 100%;
+}
+.footerChat button{
+    width: 10%;
+}
+.conversacion{
+    font-size: large;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.derecha{
+    text-align: right;
+    clear: both;
+    background-color: rgb(219, 251, 234);
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.izquierda{
+   text-align: left;
+    clear: both;
+    background-color: rgb(195, 224, 208);
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

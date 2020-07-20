@@ -10,8 +10,8 @@ export class LoginService {
     constructor(public _httpClient: HttpClient){
         //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
 
-            this.url = environment.url + '/api/login/siteLogin';
-            //this.url = '/api/login/siteLogin';
+            //this.url = environment.url + '/api/login/siteLogin';
+            this.url = '/api/login/siteLogin';
     }
 
     ValidarUsuario(usuarioV: string, passwordV: string): Observable<any> {

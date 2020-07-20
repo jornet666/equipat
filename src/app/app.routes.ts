@@ -8,6 +8,8 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 
 import { NotificacionesComponent } from './pages/notificaciones/notificaciones.component';
 import { TestingComponent } from './pages/testing/testing.component';
+import { ChatComponent } from './pages/chat/chat.component';
+
 
 
 
@@ -20,10 +22,10 @@ export const APP_ROUTES: Routes = [
             {path: 'menu', component: MenuComponent},
             {path: 'perfiles', component: PerfilesComponent},
             {path: 'usuarios', component: UsuariosComponent},
-            {path: 'push', component: NotificacionesComponent}
-            
+            {path: 'push', component: NotificacionesComponent},
+            {path: 'chat', component: ChatComponent}
+
         ]},
-    
     {path: '**', pathMatch: 'full', redirectTo: 'login'}
 ];
 

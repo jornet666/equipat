@@ -5,3 +5,7 @@ npm install ngx-spinner --save
 npm install jquery --save
 
 npm install ngx-spinner v8  --save   
+
+npm install express --save
+npm install socket.io --save
+

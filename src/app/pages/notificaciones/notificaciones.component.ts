@@ -7,7 +7,7 @@ import { UsuarioModel,ConfModel } from '../../models/usuario.home';
 import {Campania} from '../../models/campania.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";
-import {MatDatepickerModule, MatDatepicker} from '@angular/material/datepicker'; 
+import {MatDatepickerModule, MatDatepicker} from '@angular/material/datepicker';
 import { DateAdapter } from '@angular/material';
 
 

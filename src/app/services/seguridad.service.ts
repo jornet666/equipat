@@ -12,8 +12,8 @@ export class SeguridadService {
         {
             
             //this.url = 'https://renoenlineaapi.azurewebsites.net/api/site/test';
-            this.urlBase = environment.url + '/api/site/';
-            //this.urlBase = '/api/site/';
+            //this.urlBase = environment.url + '/api/site/';
+            this.urlBase = '/api/site/';
             
         }
     AgregarMenuaPerfil(cve_perfilM, cve_menuM){ 

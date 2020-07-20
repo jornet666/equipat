@@ -17,7 +17,11 @@ export class LoginComponent implements OnInit {
   submitted = false;
   usuario: string;
   usuarioNav: UsuarioNav;
-  constructor(private formBuilder: FormBuilder, private _loginService: LoginService, private router: Router) {
+  constructor(
+      private formBuilder: FormBuilder
+    , private _loginService: LoginService
+    , private router: Router
+    ) {
 
   }
   usuarioValido: boolean;
@@ -27,7 +31,7 @@ export class LoginComponent implements OnInit {
         usuario: ['', Validators.required],
         password: ['', Validators.required]
       });
-      this.usuarioNav = new UsuarioNav(0,0,'','','');
+      this.usuarioNav = new UsuarioNav(0, 0, '', '', '');
 
   }
 

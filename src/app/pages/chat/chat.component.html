@@ -1,0 +1,100 @@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+
+    <div>
+        <input type="text" #IDName >
+        <button (click)="setId(IDName.value)" >Guardar</button>
+    </div>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>CHAT</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/home">Inicio</a></li>
+                        <li class="breadcrumb-item active">Chat</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row" id="tablaChat" >
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header row">
+                            <div class="col-md-10">
+                                <h3 class="card-title">Listado de Usuarios</h3>
+                            </div>
+                           
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="tbMenus" class="table  table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>USUARIO</th>
+                                        <th>ESTATUS</th>
+                                        <th>ACCION</th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    <tr *ngFor="let l of destinatarios">
+                                        <td>{{l[0]}}</td>
+                                        <td>{{l[1]}}</td>
+                                        <td>{{l[2]}}</td>
+                                        <td><button (click)="AbriChat(l[0], l[1], l[0], userId, $event,l);">{{l[3]}}</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                <!-- /.card -->
+                </div>
+            </div>
+          
+            <div class="row" #contenChats >
+            
+            
+                <div class="chatBox" *ngFor="let c of listChat" [id]='c.idChat + "chatBox"'>
+                    <div class="chatBoxHeader">
+                        <label>{{c.nombreUsuario}}</label>
+                      
+                        <a>X</a>
+                    </div>
+                    <div class="bodyChat">
+                        <div *ngFor="let m of c.mensajes">
+                            <div [ngClass]="{ 'conversacion':true,'derecha':userId != m.idUser,'izquierda':userId == m.idUser }">
+                                <p>
+                                    {{m.nombreUs}} :    
+                                </p>
+                                <p >
+                                    {{m.mensaje}}
+                                </p>
+                                <hr>
+                            </div>
+                           
+                           
+                        </div>
+                        
+                    </div>
+                
+                    <div class="footerChat">
+                        <input type="text" [id]='c.idChat + "_text" ' #{{c.idChat}}_text>
+                        <button (click)="EnviarMensaje(c.idChat + '_text',c.receiverChatID)" >>></button>
+                    </div>
+                
+                </div>
+              
+            </div>
+        </div>
+    </section>
+    </div>
